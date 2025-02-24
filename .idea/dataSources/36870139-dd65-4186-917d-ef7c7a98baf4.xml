@@ -16001,6 +16001,7 @@ SELECT INTO</Tags>
     <table id="845" parent="673" name="oversea-api_osd_video_scheduled_users">
       <Comment>新剧预约记录表</Comment>
       <ObjectId>190374</ObjectId>
+      <Outdated>1</Outdated>
       <StateNumber>57951</StateNumber>
       <OwnerName>cs_data_log.public.developer</OwnerName>
     </table>
