@@ -17,7 +17,7 @@ from (select
     vid ,
     case when min(t.current_diff)>=0 then sum(coalesce(t.ad_cost,0))  else 0 end as ad_cost_sum
 from public.dw_video_overview t
-where d_date <= '2025-02-20' and display_date <= d_date and display_date >= date(date_trunc('month',date '2025-02-20'))
+where d_date <= '2025-02-24' and display_date <= d_date and display_date >= date(date_trunc('month',date '2025-02-24'))
 group by vid ) t0;
 
 select

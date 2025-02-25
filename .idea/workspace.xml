@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/2/24 完成分语言上架汇总数据2.0 补全了数据">
-      <change afterPath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-insert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-test1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-test2.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-建表tmp.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/分语言剧上架汇总数据.sql" beforeDir="false" afterPath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

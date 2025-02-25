@@ -16,6 +16,7 @@
             </node>
             <node kind="database" qname="cs_data_log">
               <node kind="schema">
+                <name qname="dw" />
                 <name qname="public" />
                 <name qname="tmp" />
               </node>
@@ -39,8 +40,17 @@
             </node>
             <node kind="database">
               <name qname="data_admin" />
-              <name qname="data_log" />
               <name qname="data_test" />
+            </node>
+            <node kind="database" qname="data_log">
+              <node kind="schema">
+                <name qname="dw" />
+                <name qname="public" />
+                <name qname="tmp" />
+              </node>
+            </node>
+            <node kind="database" qname="postgres">
+              <node kind="schema" qname="public" />
             </node>
           </node>
         </introspection-scope>
