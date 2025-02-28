@@ -315,7 +315,7 @@ select
 from t5
 group by t5.d_date,t5.lang,t5.total_test_video_num,t5.total_roi_0_video_num,t5.total_payment_rate_video_num;
 ---------------------------------------------------------------------
--- 求值语句6.0 需要补全数据
+-- 求值语句6.0 补全数据 + 加入新字段测试率
 ---------------------------------------------------------------------
 with tmp_all_video as (
     select
@@ -350,7 +350,7 @@ with tmp_all_video as (
     select
         all_video_date.vid,
         all_video_date.d_date,
-        t0.lang,
+        all_video_date.lang,
         all_video_date.display_date,
         case when ad_cost_sum is null then ad_cost else ad_cost_sum end  ad_cost_sum_1,
         case when pay_0_sum is null then pay_0 else pay_0_sum end  pay_0_sum_1,
@@ -381,6 +381,7 @@ with tmp_all_video as (
             lang,
             count(distinct  vid ) total_video_num,
             sum(case when ad_cost_sum_until_d_date >0 then 1 else 0 end) as total_test_video_num ,
+            case when count(distinct  vid )>0 then round(1.0*sum(case when ad_cost_sum_until_d_date >0 then 1 else 0 end)/count(distinct  vid ) *100,2) else 0 end as "test_rate",
             sum(case when roi_0_until_date > 0.4 then 1 else 0 end ) as total_roi_0_video_num,
             sum(case when  payment_rate_until_date > 0.02 then 1 else 0 end ) as total_payment_rate_video_num
         from t3
@@ -391,6 +392,7 @@ select
     lang as "剧语言",
     total_video_num as "当月上架剧数量",
     total_test_video_num as "剧测试数量",
+    test_rate as "剧测试比例",
     total_roi_0_video_num as "首日ROI大于40%剧数量",
     total_payment_rate_video_num as "付费率大于2%剧数量"
-from t4;
+from t4

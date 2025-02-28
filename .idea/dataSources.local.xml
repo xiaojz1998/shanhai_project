@@ -38,15 +38,18 @@
             <node kind="database" qname="@">
               <node kind="schema" qname="@" />
             </node>
-            <node kind="database">
-              <name qname="data_admin" />
-              <name qname="data_test" />
-            </node>
+            <node kind="database" qname="data_admin" />
             <node kind="database" qname="data_log">
               <node kind="schema">
                 <name qname="dw" />
                 <name qname="public" />
                 <name qname="tmp" />
+              </node>
+            </node>
+            <node kind="database" qname="data_test">
+              <node kind="schema">
+                <name qname="dw" />
+                <name qname="public" />
               </node>
             </node>
             <node kind="database" qname="postgres">
