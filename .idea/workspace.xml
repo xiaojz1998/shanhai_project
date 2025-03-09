@@ -4,20 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/2/25 上午 提交了分语言剧上架汇总数据和用户分层需求">
-      <change afterPath="$PROJECT_DIR$/新剧预约报表/dwd_behave_user_schedule_video_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/杂项需求/加appid.sql" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/2/28 完成新剧预约报表初版">
+      <change afterPath="$PROJECT_DIR$/k币报表修复/K币数据报表_增量2天_d_原sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k币报表修复/k币test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k币报表修复/k币test数据量.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k币报表修复/k币修复报表_全量初始化_new.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/k币报表修复/k币修复报表_增量2天_d_new.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-分层表和热度表-正式服/建表.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-分层表和热度表-正式服/注入.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/appid_test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/加appid.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/加appid_1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/加appid_2.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/tmp.F8EBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/tmp.F8EBAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/public.abK9xQ.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/cs_data_log.HgB8wQ/schema/tmp.F8EBAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/36870139-dd65-4186-917d-ef7c7a98baf4/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" beforeDir="false" afterPath="$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/新剧预约报表.sql" beforeDir="false" afterPath="$PROJECT_DIR$/新剧预约报表/新剧预约报表-test1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abTest.sql" beforeDir="false" afterPath="$PROJECT_DIR$/abTest/abTest.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" beforeDir="false" afterPath="$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" beforeDir="false" afterPath="$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/杂项需求/加appid.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/用户分层需求/用户分层需求-insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-insert.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/用户分层需求/用户分层需求-test1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/用户分层需求/用户分层需求-test2.sql" beforeDir="false" afterPath="$PROJECT_DIR$/k币报表修复/K币数据报表_全量初始化原sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/用户分层需求/用户分层需求-建表tmp.sql" beforeDir="false" afterPath="$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-建表tmp.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +61,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoj/Desktop/我的代码和数据/导出表/mg_duanju_report_active_record.csv&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoj&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -53,6 +75,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\用户分层需求\用户分层需求第一版-下线" />
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\用户分层需求" />
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\abTest" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\新剧预约报表" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\分语言剧上架汇总数据" />
     </key>
@@ -77,7 +102,8 @@
     <MESSAGE value="2025/2/20 完成分语言上架汇总数据2.0 补全了数据" />
     <MESSAGE value="2025/2/24 完成分语言上架汇总数据2.0 补全了数据" />
     <MESSAGE value="2025/2/25 上午 提交了分语言剧上架汇总数据和用户分层需求" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/2/25 上午 提交了分语言剧上架汇总数据和用户分层需求" />
+    <MESSAGE value="2025/2/28 完成新剧预约报表初版" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/2/28 完成新剧预约报表初版" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

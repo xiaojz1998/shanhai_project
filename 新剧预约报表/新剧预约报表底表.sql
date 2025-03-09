@@ -14,13 +14,12 @@ create table if not exists public.dws_behave_user_watch_charge_scheduled_video
     pay_pv                          bigint,
     pay_amt                         numeric(20,2)
 );
-
-
 -- 每日注入
 set timezone ='UTC-0';
 truncate table public.dws_behave_user_watch_charge_scheduled_video;
 insert into public.dws_behave_user_watch_charge_scheduled_video
 with t0 as (
+    -- 找到所有预约动作，补全剧集属性
         SELECT
         uid,
         vid,
@@ -32,13 +31,16 @@ with t0 as (
     on t0.vid = t1.id
     WHERE t0.status = '1'
 ), t1 as (
+    -- 生成连续日期 用于join
     select generate_series(date '2025-01-30',current_date ,'1 day')::date d_date
 ), t2 as (
     select
+    -- 链接预约和日期表，生成一个总表用于统计
         *
     from t0,t1
     where t0.display_date<= t1.d_date
 ), tmp_video_watch as (
+    -- 找到用户对剧的观看行为
     select
         to_timestamp(created_at)::date as d_date,
         uid,
@@ -46,9 +48,10 @@ with t0 as (
         count(case when event in(1,2,13,14) then 1 else null end) as watch_pv,
         sum(case when event=2 then watch_time else 0 end) as watch_duration_sec
     from app_user_track_log
-    where event in (1,2,13,14) and vid>0 and eid>0
+    where event in (1,2,13,14) and vid>0 and eid>0 and created_date>='20250130'
     group by to_timestamp(created_at)::date,uid,vid
 ), tmp_video_charge as (
+    -- 找到用户对剧的充值行为
         select
         uid,
         goods_id as vid,
@@ -60,12 +63,25 @@ with t0 as (
            and  status = 1 and environment = 1
     group by uid,goods_id,to_timestamp(created_at)::date
 ), tmp_video_watch_uv as  (
+    -- 统计每个剧每天的总观看人数
+    -- select
+    --     d_date,
+    --     vid,
+    --     count(distinct uid) total_watch_uv_on_d_date
+    -- from tmp_video_watch
+    -- group by d_date, vid
+    -- 优化掉count distinct
     select
         d_date,
         vid,
-        count(distinct uid) total_watch_uv_on_d_date
+        count(uid) total_watch_uv_on_d_date
+    from (select
+        d_date,
+        vid,
+        uid
     from tmp_video_watch
-    group by d_date, vid
+    group by d_date, vid, uid ) t
+    group by d_date,vid
 )
 select
     t2.d_date,
@@ -86,4 +102,5 @@ from t2
         on t2.uid=t4.uid and t2.vid = t4.vid and t2.d_date = t4.d_date
     left join tmp_video_watch_uv as t5
         on t2.d_date = t5.d_date and t2.vid = t5.vid;
+
 
