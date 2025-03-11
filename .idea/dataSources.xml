@@ -8,11 +8,11 @@
       <jdbc-url>jdbc:postgresql://hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com:80/data_log</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="postgres@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="5bd60e32-7a06-4fd7-b7b9-3e1876e70970">
+    <data-source source="LOCAL" name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="dcc982bd-8ac7-4f28-9742-b61576361792">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com:80/postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com:80/cs_data_log</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

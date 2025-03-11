@@ -2,6 +2,13 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/abTest/abTest.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/原sql/K币数据报表_全量初始化原sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币中间层.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new1.0.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new2.0.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值2.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数据量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" dialect="PostgreSQL" />
