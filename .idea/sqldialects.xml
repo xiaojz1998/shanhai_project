@@ -3,19 +3,35 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/abTest/abTest.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/原sql/K币数据报表_全量初始化原sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/原sql/K币数据报表_增量2天_d_原sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币中间层.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new1.0.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new2.0.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new3.0.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币报表修复_增量2天_d_new1.0.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值2.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数据量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/国内日活用户表修改/dwd_user_active_new.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/国内日活用户表修改/dwd_user_active原sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/国内日活用户表修改/测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/加appid.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-insert.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-建表tmp.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/bi原sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_operate_roi_v2.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_operate_view.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_push_view.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_retention_daily.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/运营月进度_全量h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/新sql/dw_operate_schedule_v1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/新sql/dw_operate_schedule_v1_增量.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/新sql/字段实现.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/测试/测试1.sql" dialect="PostgreSQL" />
   </component>
 </project>

@@ -35,7 +35,7 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="dcc982bd-8ac7-4f28-9742-b61576361792">
+    <data-source name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="1bc41460-9073-4570-9b00-48b921114d1b">
       <database-info product="PostgreSQL" version="11.3" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="11.3" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
