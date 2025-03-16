@@ -48,13 +48,15 @@ CREATE TABLE tmp.dw_operate_schedule_tmp02 (
     month_ad_cost numeric(20,2),
     pay_amt_per_user  numeric(20,2),                  -- 客单价
     total_ROI   numeric(20,2),                        -- 总roi
+    repay_user  integer,                              -- 续订用户数
+    due_user  integer,                                -- 到期用户数
     subscription_rate   numeric(20,2),                -- 续订率
     total_retention_rate_7d  numeric(20,2),           -- 7日留存率
     pay_7 numeric(20,2),                              -- 7日支付
     refund_7 numeric(20,2),                           -- 7日退款
     total_push_unt    integer,                        -- 触及人数
     total_click_unt   integer,                        -- 点击人数
-    push_click_rate   numeric(20,2)                  -- 触达率
+    push_click_rate   numeric(20,2)                   -- 触达率
     ,PRIMARY KEY (d_date, country_code, lang)
 );
 
@@ -109,6 +111,8 @@ CREATE TABLE dw_operate_schedule(
     month_ad_cost numeric(20,2),
     pay_amt_per_user  numeric(20,2),                  -- 客单价
     total_ROI   numeric(20,2),                        -- 总roi
+    repay_user  integer,                              -- 续订用户数
+    due_user  integer,                                -- 到期用户数
     subscription_rate   numeric(20,2),                -- 续订率
     total_retention_rate_7d  numeric(20,2),           -- 7日留存率
     pay_7 numeric(20,2),                              -- 7日支付
@@ -260,9 +264,7 @@ with new_reg_users as (
         push_time::date as push_date,
         push_unt,
         click_unt,
-        case when t2.lang_name='繁体中文' then '中文'
-             when t2.lang_name='简体中文' then '中文'
-             when t2.lang_name='英语阿拉伯语' then '阿拉伯语'
+        case when t2.lang_name='英语阿拉伯语' then '阿拉伯语'
              when t2.lang_name=''or t2.lang_name is null then 'UNKNOWN' else t2.lang_name end as lang
     from(
         select
@@ -323,6 +325,8 @@ with new_reg_users as (
 	,sum(t1.dau_30login) as dau_30login
 	,case when SUM(dau) = 0 then 0 else SUM(pay_amt) / SUM(dau) end as pay_amt_per_user     -- 客单价
 	,CASE WHEN SUM(ad_cost) = 0.00  THEN 0 ELSE SUM(pay_amt+ad_income_amt-pay_refund_amt) / SUM(ad_cost) END as total_ROI   -- 总roi
+	,sum(repay_user) as repay_user
+	,sum(due_user)   as due_user
 	,case when sum(due_user)=0 then null  else 1.0*sum(repay_user)/sum(due_user) end as subscription_rate
 	,case when sum(dau)=0 then null else 1.0*sum(dau_7login)/sum(dau) end as total_retention_rate_7d
 	from public.dw_operate_view t1
@@ -373,6 +377,8 @@ with new_reg_users as (
     --
 	,t1.pay_amt_per_user
 	,t1.total_ROI
+	,t1.repay_user
+	,t1.due_user
 	,t1.subscription_rate
 	,t1.total_retention_rate_7d
 	from tmp_operate_01 t1
@@ -423,6 +429,8 @@ select
 --
 ,t1.pay_amt_per_user            -- 客单价
 ,t1.total_ROI                   -- 总roi
+,t1.repay_user
+,t1.due_user
 ,t1.subscription_rate           -- 续订率
 ,t1.total_retention_rate_7d     -- 7日留存率
 ,pay_7                          -- 7日支付
@@ -433,7 +441,7 @@ select
 from tmp_operate t1
 left join tmp_watch t2 on t1.d_date=t2.d_date and t1.country_code=t2.country_code and t1.lang=t2.lang
 left join tmp_pay t3 on t1.d_date=t3.d_date::text and t1.country_code=t3.country_code and t1.lang=t3.lang
-left join tmp_push t4 on t1.d_date = t4.push_date::text and t1.lang = t4.lang
+left join tmp_push t4 on t1.d_date = t4.push_date::text and t1.lang_name = t4.lang
 left join tmp_refund t5 on t1.d_date = t5.d_date::text and t1.country_code = t5.country_code and t1.lang = t5.lang;
 --从临时表导入主表
 	truncate table public.dw_operate_schedule ;
