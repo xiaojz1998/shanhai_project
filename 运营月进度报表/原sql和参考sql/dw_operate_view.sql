@@ -6,7 +6,8 @@ insert into tmp.dw_operate_view_tmp01
 -- 脚本
 --
 with new_reg_users as (
-	select v_date as created_date
+	select
+	 v_date as created_date
 	,d_date::date as d_date
 	,uid::int8 as uid
 	,country_code

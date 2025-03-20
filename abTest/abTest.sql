@@ -31,6 +31,12 @@ select
 from user_log ul
 where to_timestamp(created_at::bigint)::date = '2024-09-18' ) t1
 group by event ;
+----------------------------------------------------------------------
+-- 找相关埋点 ab_tag = '' 现在先不上线
+----------------------------------------------------------------------
 
-select *
-from dw.ads_api_abtest_event_df
+select
+    *
+from app_user_track_log
+where event_name = 'profile_topup' and to_timestamp(created_at::bigint)::date = '2025-03-18' and get_json_object(ext_body,'$.ab_tag') = ''
+limit 10

@@ -294,8 +294,8 @@ select
 ,t1.ad_cost_asa
 ,t1.ad_cost_other
 ,t1.pay_refund_amt
-,t1.dau_2login
-,t1.dau_3login
+,t1.dau_2login                  -- 2日留存
+,t1.dau_3login                  -- 3日留存
 ,t1.dau_14login
 ,t1.dau_30login
 ,t1.month_ad_cost

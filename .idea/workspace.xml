@@ -4,18 +4,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/3/13 完成运营月报表底表">
-      <change afterPath="$PROJECT_DIR$/商业广告报表/测试/test.sql" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/3/16">
+      <change afterPath="$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计全量.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计增量.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/商业广告报表/quickbi.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/商业广告报表/商业广告报表bi.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/国内-新建roi数据底表需求/参考sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/国内-新建roi数据底表需求/新sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/国内-新建roi数据底表需求/测试sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/正确的续费数据/原sql/经营报表概览.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/正确的续费数据/新sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/正确的续费数据/测试/test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表/原sql和参考sql/分语言运营数据_于越.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表/新sql/ dw_area_month_budget_new.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表/新sql/bi新sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表/新sql/经营报表_指标概览_增量8天_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表/测试/检测错误.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k币报表修复/原sql/K币数据报表_增量2天_d_原sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/k币报表修复/原sql/K币数据报表_增量2天_d_原sql.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k币报表修复/新sql/k币报表修复_增量2天_d_new1.0.sql" beforeDir="false" afterPath="$PROJECT_DIR$/k币报表修复/新sql/k币报表修复_增量2天_d_new1.0.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/运营月进度报表/新sql/dw_operate_schedule_v1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/运营月进度报表/新sql/dw_operate_schedule_v1.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abTest/abTest.sql" beforeDir="false" afterPath="$PROJECT_DIR$/abTest/abTest.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/商业广告报表/测试/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/测试/test.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/国内日活用户表修改/dwd_user_active_new.sql" beforeDir="false" afterPath="$PROJECT_DIR$/国内-日活用户表修改/dwd_user_active_new.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/国内日活用户表修改/dwd_user_active原sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/国内-日活用户表修改/dwd_user_active原sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/国内日活用户表修改/测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/国内-日活用户表修改/测试.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_operate_view.sql" beforeDir="false" afterPath="$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_operate_view.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/运营月进度报表/新sql/dw_operate_schedule_v1_增量.sql" beforeDir="false" afterPath="$PROJECT_DIR$/运营月进度报表/新sql/dw_operate_schedule_v1_增量.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/运营月进度报表/测试/测试1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/运营月进度报表/测试/测试1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/重要参考sql/用户观看剧集行为.sql" beforeDir="false" afterPath="$PROJECT_DIR$/重要参考sql/用户观看剧集行为.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +61,12 @@
     "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "C:/computer/odps-jdbc-3.9.0-rc4-jar-with-dependencies.jar",
-    "settings.editor.selected.configurable": "configurable.group.database.main"
+    "settings.editor.selected.configurable": "database.query.execution"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
-      "postgresql",
-      "java.sql.Driver"
+      "java.sql.Driver",
+      "postgresql"
     ],
     "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
       "PostgreSQL"
@@ -60,11 +75,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\正确的续费数据\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\运营月进度报表\原sql" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\k币报表修复\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\k币报表修复\新sql" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\k币报表修复\原sql" />
-      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\用户分层需求\用户分层需求第一版-下线" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -91,7 +106,8 @@
     <MESSAGE value="2025/3/9 要完成k币修复报表" />
     <MESSAGE value="2025/3/11 k币报表修复还差增量2天" />
     <MESSAGE value="2025/3/13 完成运营月报表底表" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/3/13 完成运营月报表底表" />
+    <MESSAGE value="2025/3/16" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/3/16" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
