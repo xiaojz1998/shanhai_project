@@ -391,10 +391,7 @@ set timezone ='UTC-0';
                             END
 
 	    )t7  on t0.v_date=t7.created_date::int and t0.country_code=t7.country_code and t0.lang=t7.lang and t0.os=t7.os
-
 	    ;
-
-
 			-- delete from public.dw_operate_view where d_date>= (current_date+interval '-31 day')::date::text;
 			-- insert into public.dw_operate_view select * from tmp.dw_operate_view_tmp01 where d_date>= (current_date+interval '-31 day')::date::text;
 			truncate table public.dw_operate_view;

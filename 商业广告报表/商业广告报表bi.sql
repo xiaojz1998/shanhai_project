@@ -34,13 +34,14 @@ create table if not exists public.ads_traffic_ad_type_statistics
     ads_show_fail_rate numeric(20,2)
 );
 -- 注入
+truncate table public.ads_traffic_ad_type_statistics;
 insert into public.ads_traffic_ad_type_statistics
 select
     d_date,
-    coalesce(area, 'unknown'),
-    coalesce(country_name, 'unknown'),
-    coalesce(lang_name, 'unknown'),
-    coalesce(os, 'unknown'),
+    coalesce(area, 'UNKNOWN'),
+    coalesce(country_name, 'UNKNOWN'),
+    coalesce(lang_name, 'UNKNOWN'),
+    coalesce(os, 'UNKNOWN'),
     ad_type,
     sum(case when event not in(6,7,8,9) then 1 else 0 end ) as total_ad_click_uv,
     sum(case when event not in(6,7,8,9) then pv else 0 end ) as total_ad_click_pv,
@@ -69,10 +70,10 @@ select
 from dws_traffic_user_ad_log_1d
 where d_date >= '2024-09-01' and d_date <= current_date-1            -- 测试日期
 group by d_date,
-         coalesce(area, 'unknown'),
-         coalesce(country_name, 'unknown'),
-         coalesce(lang_name, 'unknown'),
-         coalesce(os, 'unknown'),
+         coalesce(area, 'UNKNOWN'),
+         coalesce(country_name, 'UNKNOWN'),
+         coalesce(lang_name, 'UNKNOWN'),
+         coalesce(os, 'UNKNOWN'),
          ad_type;
 
 
@@ -113,13 +114,14 @@ create table if not exists public.ads_traffic_ad_statistics
     total_ads_show_fail_pv bigint,
     ads_show_fail_rate numeric(20,2)
 );
+truncate table public.ads_traffic_ad_statistics;
 insert into public.ads_traffic_ad_statistics
 select
     d_date,
-    coalesce(area, 'unknown'),
-    coalesce(country_name, 'unknown'),
-    coalesce(lang_name, 'unknown'),
-    coalesce(os, 'unknown'),
+    coalesce(area, 'UNKNOWN'),
+    coalesce(country_name, 'UNKNOWN'),
+    coalesce(lang_name, 'UNKNOWN'),
+    coalesce(os, 'UNKNOWN'),
     sum(case when event in (262,266,269,39,36,5,41) then 1 else 0 end ) as total_ad_click_uv,
     sum(case when event in (262,266,269,39,36,5,41) then pv else 0 end ) as total_ad_click_pv,
     sum(case when event = 39 or event = 36 then 1 else 0 end ) as total_checkin_ad_click_uv,
@@ -151,7 +153,7 @@ select
 from dws_traffic_user_ad_log_1d
 where d_date >= '2024-09-01' and d_date <= current_date-1                -- 测试日期
 group by d_date,
-         coalesce(area, 'unknown'),
-         coalesce(country_name, 'unknown'),
-         coalesce(lang_name, 'unknown'),
-         coalesce(os, 'unknown');
+         coalesce(area, 'UNKNOWN'),
+         coalesce(country_name, 'UNKNOWN'),
+         coalesce(lang_name, 'UNKNOWN'),
+         coalesce(os, 'UNKNOWN');

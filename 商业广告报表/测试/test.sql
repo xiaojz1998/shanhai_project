@@ -86,7 +86,7 @@ limit 20;
 select
     count(*)
 from "oversea-api_osd_user_daily"
-where data_date = current_date+interval '-1 day'
+where data_date = current_date+interval '-1 day';
 
 --------------------------------------------------------------
 --  订单数据量
@@ -108,3 +108,27 @@ from (SELECT
 -- 测试dws_traffic_user_ad_log_1d 数据量 81608902 81612397
 -------------------------------------------------------------
 select count(*)from dws_traffic_user_ad_log_1d
+
+-------------------------------------------------------------
+-- 找到unknown 和 UNKNOWN
+-------------------------------------------------------------
+select count(*) from public.dwd_user_info
+where  lang = 'UNKNOWN';
+
+-------------------------------------------------------------
+-- 测试广告填充和展示
+-------------------------------------------------------------
+select
+    count(*)
+    from app_performance_event_log
+    where event in (6,7,8,9) and type in ('1','2','3');
+-------------------------------------------------------------
+-- 检验正确度
+-------------------------------------------------------------
+select
+    d_date,
+    ad_type,
+    sum(case when event not in(6,7,8,9) then 1 else 0 end ) as total_ad_click_uv
+from dws_traffic_user_ad_log_1d
+group by d_date,ad_type
+having ad_type = 'adcloud广告'

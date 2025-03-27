@@ -15,6 +15,8 @@
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/取数/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/取数/新sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计全量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计增量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/quickbi.sql" dialect="PostgreSQL" />
@@ -28,8 +30,11 @@
     <file url="file://$PROJECT_DIR$/国内-日活用户表修改/测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/原sql/经营报表概览.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/正确的续费数据/新sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/经营报表-流水表-对比.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/经营报表概览.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/订单表new-续订人数.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/测试/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/测试/aguo.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/加appid.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-insert.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" dialect="PostgreSQL" />
