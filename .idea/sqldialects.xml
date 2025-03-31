@@ -28,7 +28,9 @@
     <file url="file://$PROJECT_DIR$/国内-日活用户表修改/dwd_user_active_new.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/国内-日活用户表修改/dwd_user_active原sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/国内-日活用户表修改/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/新剧预约报表/验收.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/原sql/经营报表概览.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/经营报表-流水表-对比.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/经营报表概览.sql" dialect="PostgreSQL" />
@@ -39,6 +41,12 @@
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-insert.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-建表tmp.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/订单失败率监控/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/订单失败率监控/原sql/订单失败率监控_全量初始化.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/订单失败率监控/原sql/订单失败率监控_增量2天_h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/订单失败率监控/新sql/分订单状态统计_全量.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/订单失败率监控/新sql/分订单状态统计_增量2天_h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/订单失败率监控/新sql/分订单状态统计bi.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/bi原sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_operate_roi_v2.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/原sql和参考sql/dw_operate_view.sql" dialect="PostgreSQL" />

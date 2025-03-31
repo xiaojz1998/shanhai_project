@@ -48,7 +48,15 @@ WITH tmp_uid_date_info as (
     ),
     tmp_total_user_consume_record as (
         -- 将middle_user_consume_record_00-04这几个表合并做中间表
-        SELECT uid,
+        -- 要合并每天的uid和type的值
+        select
+            uid,
+            order_id,
+            use_balance_give,
+            order_date,
+            type,
+            sub_type
+        from (SELECT uid,
             order_id,
             use_balance_give,
             to_timestamp(created_at)::date AS order_date,
@@ -82,7 +90,7 @@ WITH tmp_uid_date_info as (
             type,
             sub_type
         FROM "middle_user_consume_record_04"
-        where type=5 or type=8 or type = 0 or type = 7
+        where type=5 or type=8 or type = 0 or type = 7 ) t
     ),
     --FIXME：
     -- 链接条件是等于号，不算太严重

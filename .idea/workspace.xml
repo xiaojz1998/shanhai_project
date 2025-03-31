@@ -4,22 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/3/20 商业广告报表完成，正在做充值流水表和经营报表续订人数检验">
-      <change afterPath="$PROJECT_DIR$/取数/新sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/正确的续费数据/新sql/经营报表-流水表-对比.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/正确的续费数据/新sql/经营报表概览.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/正确的续费数据/新sql/订单表new-续订人数.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/测试/aguo.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/3/27 开启订单失败率监控任务">
+      <change afterPath="$PROJECT_DIR$/新剧预约报表/验收.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/订单失败率监控/test.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/订单失败率监控/原sql/订单失败率监控_全量初始化.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/订单失败率监控/原sql/订单失败率监控_增量2天_h.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/订单失败率监控/新sql/分订单状态统计_全量.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/订单失败率监控/新sql/分订单状态统计_增量2天_h.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/订单失败率监控/新sql/分订单状态统计bi.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/商业广告报表/商业广告报表bi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/商业广告报表bi.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/商业广告报表/测试/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/测试/test.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/正确的续费数据/原sql/经营报表概览.sql" beforeDir="false" afterPath="$PROJECT_DIR$/正确的续费数据/原sql/经营报表概览.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/正确的续费数据/新sql/经营报表-续订人数.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/正确的续费数据/新sql/订单表-续订人数.sql" beforeDir="false" afterPath="$PROJECT_DIR$/取数/test.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/正确的续费数据/测试/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/正确的续费数据/测试/test.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new3.0.sql" beforeDir="false" afterPath="$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new3.0.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" beforeDir="false" afterPath="$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +93,8 @@
     <MESSAGE value="2025/3/13 完成运营月报表底表" />
     <MESSAGE value="2025/3/16" />
     <MESSAGE value="2025/3/20 商业广告报表完成，正在做充值流水表和经营报表续订人数检验" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/3/20 商业广告报表完成，正在做充值流水表和经营报表续订人数检验" />
+    <MESSAGE value="2025/3/27 开启订单失败率监控任务" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/3/27 开启订单失败率监控任务" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
