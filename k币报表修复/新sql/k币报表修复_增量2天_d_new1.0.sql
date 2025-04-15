@@ -2,7 +2,7 @@ set timezone = 'UTC-0';
 -----------------------------------------------------------
 -- cal02 增量两天
 -----------------------------------------------------------
-delete from tmp.dw_coin_consume_cal02 where data_date >=(current_date+interval '-1 day');
+delete from tmp.dw_coin_consume_cal02 where data_date >=(current_date+interval '-2 day');
 insert into tmp.dw_coin_consume_cal02
 WITH k_info AS (
         -- 从每日全量用户表中找到每日的用户k币充值数据等
@@ -160,7 +160,7 @@ WITH k_info AS (
                 k2.data_date = k1.data_date
                 or k2.data_date + 1 = k1.data_date
             )
-        where k1.data_date >=(current_date+interval '-1 day')
+        where k1.data_date >=(current_date+interval '-2 day')
         group by k1.data_date,
             coalesce(k1.area,'未知'),
             coalesce(k1.country_name,'未知'),
@@ -168,7 +168,7 @@ WITH k_info AS (
 -----------------------------------------------------------
 -- cal01 增量两天
 -----------------------------------------------------------
-delete from tmp.dw_coin_consume_cal01 where 日期 >=(current_date+interval '-1 day');
+delete from tmp.dw_coin_consume_cal01 where 日期 >=(current_date+interval '-2 day');
 insert into tmp.dw_coin_consume_cal01
 WITH tmp_uid_date_info as (
         -- 对uid和date_date去重后表格,用于主表
@@ -214,9 +214,45 @@ WITH tmp_uid_date_info as (
     ),
     tmp_total_user_consume_record as (
         -- 将middle_user_consume_record_00-04这几个表合并做中间表
-        SELECT uid,
+        -- 要合并每天的uid和type的值
+        select
+            uid,
+            order_date,
+            --  order_id,
+            --  money,
+            --  type,
+            --  sub_type
+            -- 用户累计充值赠币
+            sum(case when type = 7 and order_id >0 then money else 0 end )  as recharge_coin_give_num,
+            -- 用户累计签到获得赠币
+            sum(case when type = 5 then money else 0 end) as sign_coin_give_num,
+            -- 用户累计赠送币使用数量之和
+            sum(case when type = 0 then money else 0 end) as use_balance_give_num,
+            -- 用户累计做任务赠币
+            sum(case when type = 8 then money else 0 end) as total_activity_coin_give_num,
+            -- 用户累计看阶梯广告赠币
+            sum(case when type=8 and sub_type='ladder_ad' then money else 0 end) as ladder_ad_coin_give_num,
+            -- 用户累计看firefly广告赠币
+            sum(case when type=8 and sub_type='firefly_ad' then money else 0 end) as firefly_ad_coin_give_num,
+            -- 用户累计看adcloud广告赠币
+            sum(case when type=8 and sub_type='ad_cloud' then money else 0 end ) as ad_cloud_coin_give_num,
+            -- 用户累计看签到广告赠币
+            sum(case when type=8 and (sub_type='sign_ad' or sub_type='sign_firefly_ad' or sub_type='sign_adcloud_ad') then money else 0 end) as sign_ad_coin_give_num,
+            -- 用户累计奖励广告赠币
+            sum(case when type=8 and sub_type='earn_ad' then money else 0 end ) as earn_ad_coin_give_num,
+            -- 用户累计看剧任务赠币
+            sum(case when type=8 and sub_type='episode_time' then money else 0 end) as episode_time_coin_give_num,
+            -- 用户累计分享赠币
+            sum(case when type=8 and (sub_type='app_share' or sub_type='video_share') then money else 0 end ) as app_share_coin_give_num,
+            -- 用户累计看特定的剧集赠送币
+            sum(case when type=8 and sub_type='specific_episodes_nodes' then money else 0 end) as specific_episodes_nodes_coin_give_num,
+            -- 用户累计特定剧集时长赠送币
+            sum(case when type=8 and sub_type='specific_episodes_time' then money else 0 end ) as specific_episodes_time_coin_give_num,
+            -- 用户累计社媒活动赠币
+            sum(case when type=8 and sub_type='gift_code' then money else 0 end) as gift_code_coin_give_num
+        from (SELECT uid,
             order_id,
-            use_balance_give,
+            money,
             to_timestamp(created_at)::date AS order_date,
             type,
             sub_type
@@ -225,7 +261,7 @@ WITH tmp_uid_date_info as (
         union all
         SELECT uid,
             order_id,
-            use_balance_give,
+            money,
             to_timestamp(created_at)::date AS order_date,
             type,
             sub_type
@@ -234,7 +270,7 @@ WITH tmp_uid_date_info as (
         union all
         SELECT uid,
             order_id,
-            use_balance_give,
+            money,
             to_timestamp(created_at)::date AS order_date,
             type,
             sub_type
@@ -243,12 +279,13 @@ WITH tmp_uid_date_info as (
         union all
         SELECT uid,
             order_id,
-            use_balance_give,
+            money,
             to_timestamp(created_at)::date AS order_date,
             type,
             sub_type
         FROM "middle_user_consume_record_04"
-        where type=5 or type=8 or type = 0 or type = 7
+        where type=5 or type=8 or type = 0 or type = 7 ) t
+        group by uid, order_date
     ),
     --FIXME：
     -- 链接条件是等于号，不算太严重
@@ -288,6 +325,7 @@ WITH tmp_uid_date_info as (
             sum(firefly_ad_coin_give_num) as "累计看firefly广告赠币",
             sum(ad_cloud_coin_give_num) as "累计看adcloud广告赠币",
             sum(sign_ad_coin_give_num) as "累计看签到广告赠币",
+            sum(earn_ad_coin_give_num) as "累计奖励广告赠币",
             sum(episode_time_coin_give_num) as "累计看剧任务赠币", --累计看剧任务赠币
             sum(app_share_coin_give_num) as "累计分享赠币",       --累计分享赠币
             sum(specific_episodes_nodes_coin_give_num) as "累计看特定的剧集赠送币", --累计看特定的剧集赠送币
@@ -299,31 +337,33 @@ WITH tmp_uid_date_info as (
             tmp_uid_date_info.uid,
             tmp_uid_date_info.data_date,
             -- 用户累计充值赠币
-            sum(case when type = 7 and order_id >0 then use_balance_give else 0 end ) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row ) as recharge_coin_give_num,
+            sum(recharge_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row ) as recharge_coin_give_num,
             -- 用户累计签到获得赠币
-            sum(case when type = 5 then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row ) as sign_coin_give_num,
+            sum(sign_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row ) as sign_coin_give_num,
             -- 用户累计赠送币使用数量之和
-            sum(case when type = 0 then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as use_balance_give_num,
+            sum(use_balance_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as use_balance_give_num,
             -- 用户累计做任务赠币
-            sum(case when type = 8 then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as total_activity_coin_give_num,
+            sum(total_activity_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as total_activity_coin_give_num,
             -- 用户累计看阶梯广告赠币
-            sum(case when type=8 and sub_type='ladder_ad' then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as ladder_ad_coin_give_num,
+            sum(ladder_ad_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as ladder_ad_coin_give_num,
             -- 用户累计看firefly广告赠币
-            sum(case when type=8 and sub_type='firefly_ad' then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as firefly_ad_coin_give_num,
+            sum(firefly_ad_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as firefly_ad_coin_give_num,
             -- 用户累计看adcloud广告赠币
-            sum(case when type=8 and sub_type='ad_cloud' then use_balance_give else 0 end ) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as ad_cloud_coin_give_num,
+            sum(ad_cloud_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as ad_cloud_coin_give_num,
             -- 用户累计看签到广告赠币
-            sum(case when type=8 and sub_type='sign_ad' then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as sign_ad_coin_give_num,
+            sum(sign_ad_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as sign_ad_coin_give_num,
+            -- 用户累计奖励广告赠币
+            sum(earn_ad_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row) as earn_ad_coin_give_num,
             -- 用户累计看剧任务赠币
-            sum(case when type=8 and sub_type='episode_time' then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as episode_time_coin_give_num,
+            sum(episode_time_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as episode_time_coin_give_num,
             -- 用户累计分享赠币
-            sum(case when type=8 and sub_type='app_share' then use_balance_give else 0 end ) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as app_share_coin_give_num,
+            sum(app_share_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as app_share_coin_give_num,
             -- 用户累计看特定的剧集赠送币
-            sum(case when type=8 and sub_type='specific_episodes_nodes' then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as specific_episodes_nodes_coin_give_num,
+            sum(specific_episodes_nodes_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as specific_episodes_nodes_coin_give_num,
             -- 用户累计特定剧集时长赠送币
-            sum(case when type=8 and sub_type='specific_episodes_time' then use_balance_give else 0 end ) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as specific_episodes_time_coin_give_num,
+            sum(specific_episodes_time_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as specific_episodes_time_coin_give_num,
             -- 用户累计社媒活动赠币
-            sum(case when type=8 and sub_type='gift_code' then use_balance_give else 0 end) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as gift_code_coin_give_num
+            sum(gift_code_coin_give_num) over(partition by tmp_uid_date_info.uid order by data_date rows between unbounded preceding and current row )as gift_code_coin_give_num
         from tmp_uid_date_info
         left join tmp_total_user_consume_record
         on tmp_uid_date_info.uid = tmp_total_user_consume_record.uid
@@ -332,7 +372,7 @@ WITH tmp_uid_date_info as (
         left join country_info on upper(user_info.area) = country_info.country_code
         left join recharge_coin_info on t.uid = recharge_coin_info .uid
         and recharge_coin_info.data_date = t.data_date
-        where t.data_date >=(current_date+interval '-1 day')
+        where t.data_date >=(current_date+interval '-2 day')
         group by  t.data_date,
                   coalesce(country_info.area,'未知'),
                   coalesce(country_info.country_name,'未知'),
@@ -341,18 +381,18 @@ WITH tmp_uid_date_info as (
 -----------------------------------------------------------
 -- 合并cal01和cal02 到结果dw_coin_consume_1 增量两天
 -----------------------------------------------------------
-delete from public.dw_coin_consume_1 where 日期 >= (current_date+interval '-1 day');
+delete from public.dw_coin_consume_1 where 日期 >= (current_date+interval '-2 day');
 insert into public.dw_coin_consume_1
 with cal01 as (
     select
         *
     from tmp.dw_coin_consume_cal01
-    where 日期 >= (current_date+interval '-1 day')
+    where 日期 >= (current_date+interval '-2 day')
 ), cal02 as (
     select
         *
     from tmp.dw_coin_consume_cal02
-    where data_date >= (current_date+interval '-1 day')
+    where data_date >= (current_date+interval '-2 day')
 )
 select
     --
@@ -382,6 +422,7 @@ select
     coalesce("累计看firefly广告赠币",0) as "累计看firefly广告赠币",
     coalesce("累计看adcloud广告赠币",0) as "累计看adcloud广告赠币",
     coalesce("累计看签到广告赠币",0) as "累计看签到广告赠币",
+    coalesce("累计奖励广告赠币",0) as "累计奖励广告赠币",
     coalesce("累计看剧任务赠币",0) as "累计看剧任务赠币",
     coalesce("累计分享赠币",0) as "累计分享赠币",
     coalesce("累计看特定的剧集赠送币",0) as "累计看特定的剧集赠送币",

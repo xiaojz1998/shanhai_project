@@ -85,7 +85,7 @@ with new_reg_users as (
 --     on a.d_date=b.begin_date
 
 --  找到3/3 日当天 不同的uid差异
-     select * from tmp_all_order_log where uid = 17980945
+--     select * from tmp_all_order_log where uid = 17980945
 
 
 
