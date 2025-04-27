@@ -19,8 +19,10 @@
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/取数/test.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/取数/新sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/取数/历史推送取数.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/取数/测试及其他/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/取数/测试及其他/新sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/同步任务/20250417.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计全量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计增量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/quickbi.sql" dialect="PostgreSQL" />
@@ -42,10 +44,19 @@
     <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/订单表new-续订人数.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/测试/test.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/测试/aguo.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/测试/aguo1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求-测试服/加appid.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-insert.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-建表tmp.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位报表_首页新用户扩量0401_增量两天_h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_退出挽留_增量两天_h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/测试/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/落地页优化/原sql/bi.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/落地页优化/新sql/投放落地页转化漏斗报表.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/落地页优化/测试/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/落地页优化/测试/寻找问题.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/订单失败率监控/修改订单失败率监控时间口径/dw_order_failed_全量初始化.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/订单失败率监控/修改订单失败率监控时间口径/dw_order_failed_增量两天_h.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/订单失败率监控/原sql/订单失败率监控_全量初始化.sql" dialect="PostgreSQL" />

@@ -43,21 +43,16 @@ from (
         uid,
         order_num,
         status,
-        row_number() over (partition by order_num,created_date order by created_at desc  ,updated_at desc ,status desc ) as rn
+        row_number() over (partition by order_num,created_date order by created_at desc ,case when status = 1 then 3
+            when status = 3 then 4 else status end desc ) as rn
     from all_order_log
     where environment = 1 and created_date::text:: date >= '2025-03-22' ) t
     where rn = 1
 ) t
 where  created_date::text:: date = '2025-04-12'
 
-
-
-
-
-
-
 --------------------------------------------------------------------
--- 找到陈工
+-- 找到
 --------------------------------------------------------------------
 select
     *
@@ -82,16 +77,19 @@ from (
         uid,
         order_num,
         status,
-        row_number() over (partition by order_num,created_date order by created_at desc  ,updated_at desc ,status desc ) as rn
+        row_number() over (partition by order_num,created_date order by created_at desc  ,case when status = 1 then 3
+            when status = 3 then 4 when status = 4 then 2 when status = 2 then 1 else status end desc ) as rn
     from all_order_log
     where environment = 1 and created_date::text:: date >= '2025-03-22' ) t
 ) t
-where  created_date = '2025-04-12'
+where  created_date = '2025-04-11'
     ) t1
 where t1.order_num is not null
 
+
+-- 查看该订单状态
 select status,created_at,updated_at
 from all_order_log
-where order_num = 'SH169365912698478592' and created_date::text::date = '2025-04-12'
+where order_num = 'SH169338915775229952' and created_date::text::date = '2025-04-11'
 order by created_at desc
 

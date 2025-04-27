@@ -51,7 +51,8 @@ with tmp_all_order_log as (
         uid,
         order_num,
         status,
-        row_number() over (partition by order_num,created_date order by created_at desc ) as rn
+        row_number() over (partition by order_num,created_date order by created_at desc, case when status = 1 then 3
+            when status = 3 then 4 when status = 4 then 2 when status = 2 then 1 else status end desc  ) as rn
     from all_order_log
     where environment = 1 and created_date::text:: date >= '2025-03-22' ) t
     where rn = 1

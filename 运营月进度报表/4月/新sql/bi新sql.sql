@@ -54,7 +54,7 @@ union
 select
 substr(d_date,1,7) 月份
 ,d_date 日期
-, case when lang_name = '葡萄牙语' then '葡语'
+, case when lang_name = '葡萄牙语' then '葡萄牙语'
   when lang_name = '印度尼西亚语' then '印尼语'
   when lang_name in ('简体中文','繁体中文') then '中文'
   else lang_name end as 语言
@@ -105,7 +105,7 @@ where 1 = 1
 and d_date::date between '2025-01-01' and current_date - 1
 group by substr(d_date,1,7)
 , d_date
-, case when lang_name = '葡萄牙语' then '葡语'
+, case when lang_name = '葡萄牙语' then '葡萄牙语'
   when lang_name = '印度尼西亚语' then '印尼语'
   when lang_name in ('简体中文','繁体中文') then '中文'
 --   when lang_name = 'UNKNOWN' then '英语'
@@ -158,7 +158,7 @@ else round(累计消耗*1.0/目标消耗,4) end 消耗累计完成率
 , 人均剧均免费集观看数
 , lag(人均剧均免费集观看数) over(partition by mt.语言 order by 日期 ) 人均剧均免费集观看数2
 from (SELECT d_month
-  , bud_area as 语言
+  , case when bud_area = '葡语' then '葡萄牙语' else bud_area end as 语言
   , bud_payamt as 目标收入
   , cost_target as 目标消耗
   FROM "dw_area_month_budget" where area_tag = '语言' ) a right join mt on a.语言 = mt.语言 and a.d_month=mt.月份)
@@ -202,7 +202,7 @@ from (SELECT d_month
 
   union
 
-select bud_area as 语言
+select  case when bud_area = '葡语' then '葡萄牙语' else bud_area end as 语言
   , '目标' as 日期
   , null as 收入
   , bud_payamt as 累计收入
@@ -238,22 +238,6 @@ select bud_area as 语言
 ---------------------------------------------------------------
 -- 上面是with中间语句，下面是各个语言的查询语句
 ---------------------------------------------------------------
-
-
-
---葡萄牙语
-select
-  *
-from
-  total_all
-where
-  语言 = '葡语'
-order by
-  case
-    when 日期 = '目标' then '2099-01-01'
-    else 日期
-  end desc
-
 --英语
 select
   *
@@ -266,6 +250,22 @@ order by
     when 日期 = '目标' then '2099-01-01'
     else 日期
   end desc
+
+
+--葡萄牙语
+select
+  *
+from
+  total_all
+where
+  语言 = '葡萄牙语'
+order by
+  case
+    when 日期 = '目标' then '2099-01-01'
+    else 日期
+  end desc
+
+
 
 --日语
 select
