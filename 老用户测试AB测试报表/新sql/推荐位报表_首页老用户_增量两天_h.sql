@@ -9,14 +9,16 @@ set timezone ='UTC-0';
 --  建表
 ------------------------------------------
 -- 老用户首页推荐位
+-- drop table if exists public.dw_recommend_home_olduser;
 CREATE TABLE if not exists public.dw_recommend_home_olduser (
     -- 维度
     date date,
     user_type text,
+    area text ,
     country_name text,
     ad_channel text,
     user_group text,
-    id bigint,
+    id text,
     chinese_name text,
     lang_name text ,
     registration_period text ,
@@ -39,13 +41,15 @@ CREATE TABLE if not exists public.dw_recommend_home_olduser (
 );
 
 -- 老用户端内表现
+-- drop table if exists public.dw_recommend_home_app_olduser;
 CREATE TABLE if not exists public.dw_recommend_home_app_olduser (
     -- 维度
     date date NOT NULL,
-    user_type character varying(10),
-    group_type character varying(50),
-    country character varying(50),
-    ad_channel character varying(50),
+    user_type text,
+    group_type text,
+    area text,
+    country_name text,
+    ad_channel text,
     lang_name text ,
     registration_period text,
     -- 计算字段
@@ -55,10 +59,10 @@ CREATE TABLE if not exists public.dw_recommend_home_app_olduser (
     submit_recharge_times bigint,
     unlock_episodes_users bigint,
     unlock_episodes_times bigint,
-    total_watch_time_minutes double precision,
+    total_watch_time_minutes numeric(20,2),
     successful_recharge_users bigint,
     successful_recharge_times bigint,
-    total_recharge_amount double precision,
+    total_recharge_amount numeric(20,2),
     k_consume_amount numeric(20,2),
     daily_active_users bigint,
     retention_next_day bigint,
@@ -68,19 +72,21 @@ CREATE TABLE if not exists public.dw_recommend_home_app_olduser (
 
 
 -- 老用户一级指标
+--drop table if exists public.dw_recommend_home_index_olduser;
 CREATE TABLE if not exists public.dw_recommend_home_index_olduser (
-    "实验分组" character varying(50),
+    "实验分组" text,
     "观察日期内曝光人数" bigint,
     "观察日期内充值金额" numeric(15,2),
     "观察日期内活跃天数" bigint
 );
+
 ------------------------------------------
---  注入
+--  更新
 ------------------------------------------
 
 -- 老用户首页推荐位
-drop table if exists public.tmp_dw_recommend_home_olduser;
-create table public.tmp_dw_recommend_home_olduser as
+drop table if exists tmp.tmp_dw_recommend_home_olduser;
+create table tmp.tmp_dw_recommend_home_olduser as
 -- 获取用户注册信息
 -- 维度：uid
 -- 并对用户分组
@@ -88,6 +94,7 @@ WITH user_registration AS (
     SELECT
         d_date AS register_date,
         uid::int8 AS uid,
+        area,
         country_name,
         ad_channel,
         lang_name,              -- 新加入语言名称
@@ -96,7 +103,7 @@ WITH user_registration AS (
             WHEN RIGHT(CAST(uid AS VARCHAR), 2) in ('00','01','02','03','04','05','06','07','08','09') THEN '实验组'
             ELSE NULL
         END AS user_group
-    FROM dwd_user_info
+    FROM dwd_user_info t1
 ),
 -- 每一日用户曝光的基本信息维表
 -- 维度： 日期 uid
@@ -106,8 +113,9 @@ user_type_info AS (
         d.uid,
         d.d_date AS 日期,
         COALESCE(d.user_type, 'Unknown') AS user_type,
-        d.id,
+        d.id,                   -- 推荐位id
         d.chinese_name,
+        ur.area,
         ur.country_name,
         ur.ad_channel,
         ur.user_group,
@@ -120,9 +128,7 @@ user_type_info AS (
     FROM public.dim_homepage_user d
     LEFT JOIN user_registration ur ON d.uid = ur.uid
     -- 增量更新
---   WHERE d.d_date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
-    -- 单日测试
---   WHERE d.d_date ='2025-03-26'
+    -- WHERE d.d_date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
     -- 全量更细
     WHERE d.d_date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     -- 限定用户
@@ -134,6 +140,7 @@ exposure_data AS (
         TO_TIMESTAMP(ed.created_at)::date AS date,
         ed.uid,
         uti.user_type,
+        uti.area,
         uti.country_name,
         uti.ad_channel,
         uti.user_group,
@@ -142,13 +149,11 @@ exposure_data AS (
         uti.lang_name,
         uti.registration_period
     FROM public.app_user_cover_show_log ed
-    LEFT JOIN user_type_info uti ON ed.uid = uti.uid AND TO_TIMESTAMP(ed.created_at)::date = uti.日期
+    inner JOIN user_type_info uti ON ed.uid = uti.uid AND TO_TIMESTAMP(ed.created_at)::date = uti.日期
     and NULLIF(ed.model_id, '')::bigint=uti.id
     WHERE event = 111
     -- 增量更新
     -- AND TO_TIMESTAMP(ed.created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
-    -- 单日测试
-    --  AND TO_TIMESTAMP(ed.created_at)::date ='2025-03-26'
     -- 全量更新
     AND TO_TIMESTAMP(ed.created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     AND CAST(ext_body::json ->> 'page' AS int) = 1
@@ -162,7 +167,9 @@ click_data AS (
         watch_time,
         case when order_id like '%SH%' then order_id else CONCAT('SH', order_id) end AS order_id,
         vid,                            -- 剧id用于关联k币消耗
+        eid,                            -- 集id用于关联k币消耗
         uti.user_type,
+        uti.area,
         uti.country_name,
         uti.ad_channel,
         uti.user_group,
@@ -171,13 +178,11 @@ click_data AS (
         uti.lang_name,
         uti.registration_period
     FROM public.app_user_track_log cd
-    LEFT JOIN user_type_info uti ON cd.uid = uti.uid AND TO_TIMESTAMP(cd.created_at)::date = uti.日期
+    inner JOIN user_type_info uti ON cd.uid = uti.uid AND TO_TIMESTAMP(cd.created_at)::date = uti.日期
     and NULLIF(cd.column1, '')::bigint=uti.id
     WHERE event IN (112, 1, 192, 191, 2, 13, 14)
     -- 增量更新
     -- AND TO_TIMESTAMP(cd.created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
-    -- 单日测试
-    --  AND TO_TIMESTAMP(cd.created_at)::date ='2025-03-26'
     -- 全量更新
     AND TO_TIMESTAMP(cd.created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     AND CAST(ext_body::json ->> 'page' AS int) = 1          -- 应该是首页的意思
@@ -190,22 +195,11 @@ payment_data AS (
         pd.uid,
         -- SUBSTRING(order_num FROM 3)::bigint AS order_id,
         order_num,
-        money * 1.0 / 100 AS total_payment_amount,
-        uti.user_type,
-        uti.country_name,
-        uti.ad_channel,
-        uti.user_group,
-        uti.id,
-        uti.chinese_name,
-        uti.lang_name,
-        uti.registration_period
+        money * 1.0 / 100 AS total_payment_amount
     FROM public.all_order_log pd
-    LEFT JOIN user_type_info uti ON pd.uid = uti.uid AND TO_TIMESTAMP(pd.created_at)::date = uti.日期
     WHERE status = 1 AND environment = 1
     -- 增量更新
     -- AND TO_TIMESTAMP(pd.created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
-    -- 单日测试
-    -- AND TO_TIMESTAMP(pd.created_at)::date ='2025-03-26'
     -- 全量更细
     AND TO_TIMESTAMP(pd.created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
 ),
@@ -214,66 +208,73 @@ k_consume_data as (
     select
         t.date,
         t.uid,
-        goods_id,
-        money,
-        uti.user_type,
-        uti.country_name,
-        uti.ad_channel,
-        uti.user_group,
-        uti.id,
-        uti.chinese_name,
-        uti.lang_name,
-        uti.registration_period
+        goods_id,                       -- vid
+        goods_sku_id,                   -- eid
+        money
     from (select
         to_timestamp(created_at) :: date as date,
         uid,
-        goods_id,
+        goods_id,                       -- vid
+        goods_sku_id,                   -- eid
         money
     from "middle_user_consume_record_00"
     where type = 0
+    -- 增量更新
+    -- and TO_TIMESTAMP(created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
-        goods_id,
+        goods_id,                       -- vid
+        goods_sku_id,                   -- eid
         money
     from "middle_user_consume_record_01"
     where type = 0
+    -- 增量更新
+    -- and TO_TIMESTAMP(created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
-        goods_id,
+        goods_id,                       -- vid
+        goods_sku_id,                   -- eid
         money
     from "middle_user_consume_record_02"
     where type = 0
+    -- 增量更新
+    -- and TO_TIMESTAMP(created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
-        goods_id,
+        goods_id,                       -- vid
+        goods_sku_id,                   -- eid
         money
     from "middle_user_consume_record_03"
     where type = 0
+    -- 增量更新
+    -- and TO_TIMESTAMP(created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
-        goods_id,
+        goods_id,                       -- vid
+        goods_sku_id,                   -- eid
         money
     from "middle_user_consume_record_04"
     where type = 0
+    -- 增量更新
+    -- and TO_TIMESTAMP(created_at)::date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day') ) t
-    left join user_type_info uti on t.date = uti.日期 and t.uid = uti.uid
+    and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day') ) t
 ),
 -- 对k币消耗信息进行聚合
 -- 要用event = 191 uid和剧id关联
@@ -281,6 +282,7 @@ aggregated_k_consume as (
     select
         cd.date,
         cd.user_type,
+        cd.area,
         cd.country_name,
         cd.ad_channel,
         cd.user_group,
@@ -290,15 +292,16 @@ aggregated_k_consume as (
         cd.registration_period,
         sum(money) as k_consume_amount
     from click_data cd
-    left join k_consume_data on cd.vid = k_consume_data.goods_id and k_consume_data.date = cd.date and k_consume_data.uid = cd.uid
+    left join k_consume_data on cd.vid = k_consume_data.goods_id and cd.eid= k_consume_data.goods_sku_id and k_consume_data.date = cd.date and k_consume_data.uid = cd.uid
     and cd.event = 191
-    group by cd.date, cd.user_type, cd.country_name, cd.ad_channel, cd.user_group, cd.id, cd.chinese_name, cd.lang_name, cd.registration_period
+    group by cd.date, cd.user_type,cd.area, cd.country_name, cd.ad_channel, cd.user_group, cd.id, cd.chinese_name, cd.lang_name, cd.registration_period
 ),
 -- 对曝光信息进行聚合
 aggregated_exposure AS (
     SELECT
         date,
         user_type,
+        area,
         country_name,
         ad_channel,
         user_group,
@@ -309,13 +312,14 @@ aggregated_exposure AS (
         COUNT(DISTINCT uid) AS exposure_users,
         COUNT(*) AS exposure_times
     FROM exposure_data
-    GROUP BY date, user_type, country_name, ad_channel, user_group, id, chinese_name,lang_name, registration_period
+    GROUP BY date, user_type, area,country_name, ad_channel, user_group, id, chinese_name,lang_name, registration_period
 ),
 -- 对点击信息进行聚合
 aggregated_click AS (
     SELECT
         date,
         user_type,
+        area,
         country_name,
         ad_channel,
         user_group,
@@ -333,13 +337,14 @@ aggregated_click AS (
         COUNT(CASE WHEN event = 191 THEN uid END) AS episode_unlocks,
         ROUND(COALESCE(SUM(CASE WHEN event = 2 THEN watch_time ELSE 0 END) / 60.0, 0)) AS watch_duration_minutes
     FROM click_data
-    GROUP BY date, user_type,  country_name, ad_channel, user_group, id, chinese_name,lang_name, registration_period
+    GROUP BY date, user_type,  area ,country_name, ad_channel, user_group, id, chinese_name,lang_name, registration_period
 ),
 -- 对支付信息进行聚合
 aggregated_payment AS (
     SELECT
         pd.date,
         pd.user_type,
+        pd.area,
         pd.country_name,
         pd.ad_channel,
         pd.user_group,
@@ -353,16 +358,17 @@ aggregated_payment AS (
     FROM click_data pd
     LEFT JOIN payment_data cd ON pd.uid = cd.uid AND pd.date = cd.date AND pd.event = 192
     and pd.order_id=cd.order_num
-    GROUP BY pd.date, pd.user_type, pd.country_name, pd.ad_channel, pd.user_group, pd.id, pd.chinese_name,pd.lang_name, pd.registration_period
+    GROUP BY pd.date, pd.user_type,pd.area , pd.country_name, pd.ad_channel, pd.user_group, pd.id, pd.chinese_name,pd.lang_name, pd.registration_period
 )
 SELECT
     -- 维度
     ae.date,
-    ae.user_type,
+    cast(ae.user_type as text ) as user_type,
+    ae.area,
     ae.country_name,
     ae.ad_channel,
     ae.user_group,
-    ae.id,
+    ae.id:: text as id,
     ae.chinese_name,
     ae.lang_name,
     ae.registration_period,
@@ -377,15 +383,16 @@ SELECT
     COALESCE(ac.play_times, 0) AS play_times,
     COALESCE(ac.recharge_submission_times, 0) AS recharge_submission_times,
     COALESCE(ac.episode_unlocks, 0) AS episode_unlocks,
-    COALESCE(ac.watch_duration_minutes, 0) AS watch_duration_minutes,
+    cast (COALESCE(ac.watch_duration_minutes, 0) as bigint) AS watch_duration_minutes,
     COALESCE(ap.successful_payment_users, 0) AS successful_payment_users,
     COALESCE(ap.successful_payment_times, 0) AS successful_payment_times,
-    COALESCE(ap.total_payment_amount, 0) AS total_payment_amount,
-    coalesce(akc.k_consume_amount,0) as k_consume_amount
+    cast(COALESCE(ap.total_payment_amount, 0) as numeric(20,2) ) AS total_payment_amount,
+    cast(coalesce(akc.k_consume_amount,0) as numeric(20,2)) as k_consume_amount
 -- 聚合曝光表为主表
 FROM aggregated_exposure ae
 LEFT JOIN aggregated_click ac ON ae.date = ac.date
     AND ae.user_type = ac.user_type
+    and ae.area = ac.area
     AND ae.country_name = ac.country_name
     AND ae.ad_channel = ac.ad_channel
     AND ae.user_group = ac.user_group
@@ -395,6 +402,7 @@ LEFT JOIN aggregated_click ac ON ae.date = ac.date
     AND ae.registration_period = ac.registration_period
 LEFT JOIN aggregated_payment ap ON ae.date = ap.date
     AND ae.user_type = ap.user_type
+    and ae.area = ap.area
     AND ae.country_name = ap.country_name
     AND ae.ad_channel = ap.ad_channel
     AND ae.user_group = ap.user_group
@@ -404,6 +412,7 @@ LEFT JOIN aggregated_payment ap ON ae.date = ap.date
     AND ae.registration_period = ap.registration_period
 left join aggregated_k_consume  akc on ae.date = akc.date
     and ae.user_type = akc.user_type
+    and ae.area = akc.area
     and ae.country_name = akc.country_name
     and ae.ad_channel = akc.ad_channel
     and ae.user_group = akc.user_group
@@ -411,15 +420,21 @@ left join aggregated_k_consume  akc on ae.date = akc.date
     and ae.chinese_name = akc.chinese_name
     and ae.lang_name = akc.lang_name
     and ae.registration_period = akc.registration_period
-WHERE ae.user_group IS NOT null
-and ae.id IS NOT null
-ORDER BY ae.date, ae.user_type, ae.country_name, ae.ad_channel, ae.user_group, ae.id, ae.chinese_name, ae.lang_name, ae.registration_period;
+WHERE ae.user_group IS NOT null and ae.id IS NOT null
+ORDER BY ae.date, ae.user_type,ae.area, ae.country_name, ae.ad_channel, ae.user_group, ae.id, ae.chinese_name, ae.lang_name, ae.registration_period;
 
+-- 增量更新
+-- delete from public.dw_recommend_home_olduser where date between (CURRENT_DATE + INTERVAL '-2 day') and (current_date+interval '-1 day');
+-- insert into public.dw_recommend_home_olduser select * from tmp.tmp_dw_recommend_home_olduser;
+
+-- 全量更新
+truncate table public.dw_recommend_home_olduser;
+insert into public.dw_recommend_home_olduser select * from tmp.tmp_dw_recommend_home_olduser;
 
 
 -- 端内
-drop table if exists public.tmp_dw_recommend_home_app_olduser;
-create table public.tmp_dw_recommend_home_app_olduser as
+drop table if exists tmp.tmp_dw_recommend_home_app_olduser;
+create table tmp.tmp_dw_recommend_home_app_olduser as
 -- 用户注册表
 -- 维度：uid
 -- 用于补全信息
@@ -427,6 +442,7 @@ WITH user_registration AS (
     SELECT
         d_date AS register_date,
         uid::int8 AS uid,
+        area,
         country_name,
         ad_channel,
         lang_name,
@@ -445,8 +461,7 @@ user_type_derivation AS (
         d.uid,
         d.d_date AS 日期,
         COALESCE(d.user_type, 'Unknown') AS user_type,
-        d.id,
-        d.chinese_name,
+        ur.area,
         ur.country_name,
         ur.ad_channel,
         ur.user_group,
@@ -458,11 +473,16 @@ user_type_derivation AS (
              else '未知' END AS registration_period
     FROM public.dim_homepage_user d
     LEFT JOIN user_registration ur ON d.uid = ur.uid
-    -- 增量
+    -- 增量更新
     -- WHERE d.d_date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
-    -- 全量
-    WHERE d.d_date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
-    and d.user_type='olduser'
+    -- 全量更新
+    WHERE d.d_date BETWEEN '2025-04-01' AND (current_date+interval '-1 day') and d.user_type='olduser'
+    GROUP BY d.uid, d.d_date,COALESCE(d.user_type, 'Unknown'), ur.area, ur.country_name, ur.ad_channel, ur.user_group, ur.lang_name,
+             case when EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600 > 24 and EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600<= 48 then '注册1天'
+             when EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600 > 48 and EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600<= 96 then '注册2-3天'
+             when EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600 > 96 and EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600<= 192 then '注册4-7天'
+             when EXTRACT(epoch from  min_exposure_time - register_timestamp)/3600 > 192 then '注册7天以上'
+             else '未知' END
 ),
 -- k币消耗信息
 k_consume_data as (
@@ -470,56 +490,72 @@ k_consume_data as (
         t.date,
         t.uid,
         goods_id,
+        goods_sku_id,
         money
     from (select
         to_timestamp(created_at) :: date as date,
         uid,
         goods_id,
+        goods_sku_id,
         money
     from "middle_user_consume_record_00"
     where type = 0
+    -- 增量更新
+    -- and to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
         goods_id,
+        goods_sku_id,
         money
     from "middle_user_consume_record_01"
     where type = 0
+    -- 增量更新
+    -- and to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
         goods_id,
+        goods_sku_id,
         money
     from "middle_user_consume_record_02"
     where type = 0
+    -- 增量更新
+    -- and to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
         goods_id,
+        goods_sku_id,
         money
     from "middle_user_consume_record_03"
     where type = 0
+    -- 增量更新
+    -- and to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     union all
     select
         to_timestamp(created_at) :: date as date,
         uid,
         goods_id,
+        goods_sku_id,
         money
     from "middle_user_consume_record_04"
     where type = 0
+    -- 增量更新
+    -- and to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
     -- 全量更新
-    and to_timestamp(created_at)::date and to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day') ) t
+    and  to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day') ) t
 ),
 pv_counts AS (
     SELECT
@@ -528,7 +564,9 @@ pv_counts AS (
         COUNT(1) AS pv
     FROM "app_user_track_log"
     WHERE
+        -- 增量更新
         -- to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
+        -- 全量更新
         to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
         AND event  in(1,2,13,14)
     GROUP BY uid, 日期
@@ -540,16 +578,19 @@ recharge_counts AS (
         COUNT(1) AS recharge_times
     FROM "app_user_track_log"
     WHERE
+        -- 曾连更新
         -- to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
+        -- 全量更新
         to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
         AND event_name = 'submitRecharge'
     GROUP BY uid, 日期
 ),
-unlock_episodes_counts AS (
+unlock_episodes AS (
     SELECT
         uid,
         to_timestamp(created_at)::date as 日期,
         vid,
+        eid,
         COUNT(1) AS unlock_episodes_times
     FROM "app_user_track_log"
     WHERE
@@ -558,15 +599,24 @@ unlock_episodes_counts AS (
         -- 全量更新
         to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
         AND event_name = 'unlockEpisodes' and event = 191
-    GROUP BY uid, 日期,vid
+    GROUP BY uid, 日期,vid,eid
+),
+unlock_episodes_counts as (
+    select
+        uid,
+        日期,
+        sum(unlock_episodes_times) as unlock_episodes_times
+    from unlock_episodes
+    group by uid , 日期
 ),
 k_consume_sum as (
   select
-      upc.uid,
-      upc.日期,
+      ue.uid,
+      ue.日期,
       sum(money) as k_consume_amount
-  from unlock_episodes_counts upc left join k_consume_data k on upc.vid = k.goods_id and upc.uid = k.uid and upc.日期 = k.date
-  group by upc.uid and upc.日期
+  from unlock_episodes ue left join k_consume_data k
+      on ue.vid = k.goods_id  and ue.eid = k.goods_sku_id and ue.uid = k.uid and ue.日期 = k.date
+  group by ue.uid, ue.日期
 ),
 watch_time_counts AS (
     SELECT
@@ -575,7 +625,9 @@ watch_time_counts AS (
         SUM(watch_time) / 60 AS watch_time_minutes
     FROM "app_user_track_log"
     WHERE
+        -- 增量更新
         -- to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
+        -- 全量更新
         to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
         AND event_name = 'drama_watch_time'
     GROUP BY uid, 日期
@@ -584,16 +636,19 @@ successful_recharges AS (
     SELECT
         a.uid,
         to_timestamp(created_at)::date as 日期,
-        COUNT(DISTINCT a.uid) AS successful_recharge_times,
+        -- COUNT(DISTINCT a.uid) AS successful_recharge_times,
         SUM(a.money)/100.0  AS total_recharge_amount,
-        SUBSTRING(order_num FROM 3)::bigint AS order_id
+        count(distinct SUBSTRING(order_num FROM 3)::bigint) as successful_recharge_times
     from public.all_order_log a
+    inner join recharge_counts rc on to_timestamp(a.created_at)::date = rc.日期 and a.uid = rc.uid
     WHERE
+        -- 增量更新
         -- to_timestamp(created_at)::date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
+        -- 全量更新
         to_timestamp(created_at)::date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
         AND status = 1
         AND environment = 1
-    GROUP BY a.uid, 日期, SUBSTRING(order_num FROM 3)::bigint
+    GROUP BY a.uid, to_timestamp(created_at)::date
 ),
 active_users AS (
     SELECT
@@ -601,7 +656,9 @@ active_users AS (
         d_date AS active_date
     FROM public.dwd_user_active
     WHERE
+        -- 增量更新
         -- d_date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day')
+        -- 全量更新
         d_date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
     GROUP BY uid,d_date
 ),
@@ -612,6 +669,7 @@ active_day_2 AS (
     FROM public.dwd_user_active
     WHERE
         d_date >=  '2025-04-02'
+    GROUP BY uid,d_date
 ),
 active_day_4 AS (
     SELECT DISTINCT
@@ -620,6 +678,7 @@ active_day_4 AS (
     FROM public.dwd_user_active
     WHERE
         d_date >=  '2025-04-04'
+    GROUP BY uid,d_date
 ),
 active_day_8 AS (
     SELECT DISTINCT
@@ -628,14 +687,16 @@ active_day_8 AS (
     FROM public.dwd_user_active
     WHERE
         d_date >=  '2025-04-08'
+    GROUP BY uid,d_date
 )
 
 SELECT
     -- 维度
     us.日期 as date,
-    us.user_type,
+    cast(us.user_type as text ) as user_type,
     us.user_group as group_type,
-    us.country_name AS country,
+    us.area,
+    us.country_name,
     us.ad_channel,
     us.lang_name,
     us.registration_period,
@@ -646,11 +707,11 @@ SELECT
     COALESCE(SUM(recharge_counts.recharge_times), 0) AS submit_recharge_times,
     COUNT(DISTINCT CASE WHEN unlock_episodes_counts.unlock_episodes_times IS NOT NULL THEN us.uid END) AS unlock_episodes_users,
     COALESCE(SUM(unlock_episodes_counts.unlock_episodes_times), 0) AS unlock_episodes_times,
-    COALESCE(SUM(watch_time_counts.watch_time_minutes), 0) AS total_watch_time_minutes,
+    cast(COALESCE(SUM(watch_time_counts.watch_time_minutes), 0) as numeric(20,2))AS total_watch_time_minutes,
     COUNT(DISTINCT CASE WHEN sr.uid IS NOT NULL THEN us.uid END) AS successful_recharge_users,
-    COUNT(sr.order_id)  AS successful_recharge_times,
-    COALESCE(SUM(sr.total_recharge_amount),  0) as total_recharge_amount ,
-    COALESCE(sum(kcs.k_consume_amount),0)as k_consume_amount,
+    sum(sr.successful_recharge_times)  AS successful_recharge_times,
+    cast(COALESCE(SUM(sr.total_recharge_amount),  0)as numeric(20,2)) as total_recharge_amount ,
+    cast(COALESCE(sum(kcs.k_consume_amount),0) as numeric(20,2))as k_consume_amount,
     COUNT(DISTINCT au.uid) as daily_active_users,
     COUNT(DISTINCT ad2.uid) as retention_next_day,
     COUNT(DISTINCT ad4.uid)  as retention_3_days,
@@ -670,16 +731,24 @@ where us.user_group is not null
 GROUP BY us.日期,
          us.user_type,
          us.user_group,
+         us.area,
          us.country_name,
          us.ad_channel,
          us.lang_name,
          us.registration_period
 ORDER BY us.日期, us.user_type;
 
+-- 增量更新
+-- delete from public.dw_recommend_home_app_olduser where  date between (CURRENT_DATE + INTERVAL '-4 day') and (current_date+interval '-1 day');
+-- insert into public.dw_recommend_home_app_olduser select * from tmp.tmp_dw_recommend_home_app_olduser;
+
+-- 全量更新
+truncate table public.dw_recommend_home_app_olduser;
+insert into public.dw_recommend_home_app_olduser select * from tmp.tmp_dw_recommend_home_app_olduser;
 
 -- 老用户一级指标
-drop table if exists public.tmp_dw_recommend_home_index_olduser;
-create table public.tmp_dw_recommend_home_index_olduser as
+drop table if exists tmp.tmp_dw_recommend_home_index_olduser;
+create table tmp.tmp_dw_recommend_home_index_olduser as
 WITH user_selection AS (
     SELECT DISTINCT
            uid,
@@ -691,12 +760,10 @@ WITH user_selection AS (
            to_timestamp(created_at)::date as 日期
     FROM "app_user_cover_show_log"
      WHERE
---    to_timestamp(created_at)::date >='2025-03-18'
       to_timestamp(created_at)::date between '2025-04-01' and  (CURRENT_DATE - INTERVAL '1 day')
-    --  to_timestamp(created_at)::date >= '2025-03-25'
       AND event_name = 'drama_cover_show'
       AND CAST(ext_body::json ->> 'page' AS int) = 1
---      AND ext_body::json ->> 'show_title' = 'playRetain'
+--    AND ext_body::json ->> 'show_title' = 'playRetain'
 
 ),
 first_exposure AS (
@@ -705,8 +772,7 @@ first_exposure AS (
            ,type
            ,MIN(日期) as first_exposure_date
     FROM user_selection
-    GROUP BY uid
-            ,type
+    GROUP BY uid,type
 ),
 successful_recharges AS (
   SELECT
@@ -716,13 +782,10 @@ successful_recharges AS (
   FROM public.all_order_log a
   JOIN first_exposure fe ON a.uid = fe.uid
   WHERE to_timestamp(created_at)::date >= fe.first_exposure_date
-    --   AND to_timestamp(created_at)::date >='2025-03-18'
      and to_timestamp(created_at)::date between '2025-04-01' and (CURRENT_DATE - INTERVAL '1 day')
---   and to_timestamp(created_at)::date >= '2025-03-25'
       AND status = 1
       AND environment = 1
-  GROUP BY a.uid
-  , 日期
+  GROUP BY a.uid, 日期
 ),
 user_active_days AS (
   SELECT
@@ -732,9 +795,7 @@ user_active_days AS (
   JOIN first_exposure fe ON a.uid = fe.uid
   WHERE event IN (1, 16)
     AND to_timestamp(created_at)::date >= fe.first_exposure_date
-    -- AND to_timestamp(created_at)::date >='2025-03-18'
    and to_timestamp(created_at)::date between '2025-04-01' and (CURRENT_DATE - INTERVAL '1 day')
-    --   and to_timestamp(created_at)::date >= '2025-03-25'
    GROUP BY a.uid
 ),
 
@@ -758,16 +819,19 @@ user_type_info AS (
     FROM public.dim_playretain_user d
     LEFT JOIN user_selection ur ON d.uid = ur.uid
     WHERE d.d_date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
-    -- where d_date >= '2025-03-25'
     and d.user_type='olduser'
 )
 SELECT
        cd.type as 实验分组,
        COUNT(DISTINCT cd.uid) AS 观察日期内曝光人数,
-       SUM(cd.total_recharge_amount)/100.0 AS 观察日期内充值金额,
+       cast(SUM(cd.total_recharge_amount)/100.0 as numeric(15,2))AS 观察日期内充值金额,
        SUM(cd.user_active_days) AS 观察日期内活跃天数
 FROM combined_data cd
 JOIN user_type_info uti ON cd.uid = uti.uid
 where cd.type is not null
 GROUP BY cd.type
 ORDER BY cd.type;
+
+-- 全量更新
+truncate table public.dw_recommend_home_index_olduser;
+insert into public.dw_recommend_home_index_olduser select * from tmp.tmp_dw_recommend_home_index_olduser;

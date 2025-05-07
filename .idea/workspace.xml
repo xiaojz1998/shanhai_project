@@ -4,33 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/4/15 修改分订单状态报表中">
-      <change afterPath="$PROJECT_DIR$/取数/历史推送取数.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/同步任务/20250417.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/测试/aguo1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/abtest流量池_剧维度.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/abtest流量池_用户维度.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位报表_退出挽留0324.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位报表_首页新用户扩量0401_增量两天_h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_退出挽留_增量两天_h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/测试/test.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页优化/原sql/bi.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页优化/新sql/投放落地页转化漏斗报表.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页优化/新sql/第一版sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页优化/测试/test.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页优化/测试/寻找问题.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/留存率报表/dw_retention_daily_留存报表日周月_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/留存率报表/dw_retention_detail_tmp01.sql" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/4/28 老用户推荐位报表">
+      <change afterPath="$PROJECT_DIR$/取数/4-28取数/4-28取数.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/取数/4-28取数/dw_core_indicators.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/取数/4-28取数/经营报表概览_参考sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/测试/新用户首页验收sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/测试/测试端内.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/测试/测试首页.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/测试/老用户端内验收sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户测试AB测试报表/测试/老用户首页验收sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/落地页优化/临时取数/test1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/其他/增量转全量脚本.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/取数/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/取数/测试及其他/test.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/取数/新sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/取数/测试及其他/新sql.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/订单失败率监控/新sql_v1/分订单状态统计_全量.sql" beforeDir="false" afterPath="$PROJECT_DIR$/订单失败率监控/新sql_v1/分订单状态统计_全量.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/订单失败率监控/新sql_v1/分订单状态统计_增量2天_h.sql" beforeDir="false" afterPath="$PROJECT_DIR$/订单失败率监控/新sql_v1/分订单状态统计_增量2天_h.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/订单失败率监控/验收/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/订单失败率监控/验收/test.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/运营月进度报表/4月/新sql/bi新sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/运营月进度报表/4月/新sql/bi新sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_退出挽留_增量两天_h.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_退出挽留_增量两天_h.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/测试/test.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,11 +71,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\取数\4-28取数" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\落地页优化\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\取数\测试及其他" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\重要参考sql\重要报表sql\经营报表" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\订单失败率监控\验收" />
-      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\重要参考sql\功能性sql" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -118,7 +107,8 @@
     <MESSAGE value="2025/3/27 开启订单失败率监控任务" />
     <MESSAGE value="2025/3/31 k币报表修复-验收修改-还未完成" />
     <MESSAGE value="2025/4/15 修改分订单状态报表中" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/4/15 修改分订单状态报表中" />
+    <MESSAGE value="2025/4/28 老用户推荐位报表" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/4/28 老用户推荐位报表" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
