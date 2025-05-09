@@ -705,7 +705,7 @@ WITH user_selection AS (
            to_timestamp(created_at)::date as 日期
     FROM "app_user_cover_show_log"
     WHERE
-      to_timestamp(created_at)::date between '2025-04-01' and  (CURRENT_DATE - INTERVAL '1 day')
+      to_timestamp(created_at)::date between '2025-04-28' and  (CURRENT_DATE - INTERVAL '1 day')
       AND event_name = 'drama_cover_show'
       AND CAST(ext_body::json ->> 'page' AS int) = 3
       AND ext_body::json ->> 'show_title' = 'playRetain'
@@ -727,7 +727,7 @@ successful_recharges AS (
   FROM public.all_order_log a
   JOIN first_exposure fe ON a.uid = fe.uid
   WHERE to_timestamp(created_at)::date >= fe.first_exposure_date
-      and to_timestamp(created_at)::date between '2025-04-01' and (CURRENT_DATE - INTERVAL '1 day')
+      and to_timestamp(created_at)::date between '2025-04-28' and (CURRENT_DATE - INTERVAL '1 day')
       AND status = 1
       AND environment = 1
   GROUP BY a.uid, 日期
@@ -740,7 +740,7 @@ user_active_days AS (
   JOIN first_exposure fe ON a.uid = fe.uid
   WHERE event IN (1, 16)
     AND to_timestamp(created_at)::date >= fe.first_exposure_date
-    and to_timestamp(created_at)::date between '2025-04-01' and (CURRENT_DATE - INTERVAL '1 day')
+    and to_timestamp(created_at)::date between '2025-04-28' and (CURRENT_DATE - INTERVAL '1 day')
    GROUP BY a.uid
 ),
 
@@ -759,13 +759,15 @@ combined_data AS (
 user_type_info AS (
     SELECT
         d.uid,
-        d.d_date AS 日期,
-        COALESCE(d.user_type, 'Unknown') AS user_type,
-        ur.type
+        CASE
+            WHEN RIGHT(CAST(uid AS VARCHAR), 2) in ('10','11','12','13','14','15','16','17','18','19') THEN '对照组'
+            WHEN RIGHT(CAST(uid AS VARCHAR), 2) in ('00','01','02','03','04','05','06','07','08','09') THEN '实验组'
+            ELSE NULL
+        END AS type
     FROM public.dim_playretain_user d
-    LEFT JOIN user_selection ur ON d.uid = ur.uid
-     WHERE d.d_date BETWEEN '2025-04-01' AND (current_date+interval '-1 day')
+     WHERE d.d_date BETWEEN '2025-04-28' AND (current_date+interval '-1 day')
     and d.user_type='olduser'
+     group by d.uid
 )
 SELECT
        cd.type as 实验分组,

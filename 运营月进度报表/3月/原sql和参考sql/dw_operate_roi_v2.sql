@@ -2,7 +2,7 @@ set timezone ='UTC-0';
 
 		truncate  analysis.dw_operate_roi_v2_calc01 ;
 		insert into  analysis.dw_operate_roi_v2_calc01
-		    -- 获取每一天的新增用户
+		-- 用于补充信息
 			with new_reg_users as(
 				select v_date as created_date
 				,d_date as d_date
@@ -16,14 +16,12 @@ set timezone ='UTC-0';
 				,count(uid) over(partition by substr(d_date,1,7) ,country_code,ad_channel ) as new_user_cnt_month
 				from public.dwd_user_info
 			)
-			-- 每日用户订单统计
 			,tmp_pay as(
 				select created_date,d_date,d_month,uid
 				,sum(pay_orderall) as pay_orderall
 				,sum(pay_order) as pay_order
 				,sum(pay_amt) as pay_amt -- 新用户充值金额（未减退款，与指标概览保持一致）
 				from(
-					-- 每日用户订单统计
 					select created_date
 					,to_char( to_timestamp(created_at),'YYYY-MM-DD') as d_date
 					,to_char( to_timestamp(created_at),'YYYY-MM') as d_month
@@ -31,7 +29,7 @@ set timezone ='UTC-0';
 					,count(distinct order_num) as pay_orderall
 					,count(distinct case when o.status = 1 then o.order_num else null end) as  pay_order  -- 成功充值订单数
 					,sum(case when o.status = 1 then o.money*0.01 else 0 end) as  pay_amt  -- 成功充值金额
-					from public.all_order_log o                                 -- 用户订单表
+					from public.all_order_log o
 					where o.environment = 1 and o.os in('android','ios')
 					and created_date>=20240701
 						-- and to_char( to_timestamp(created_at),'YYYY-MM-DD') <= (current_date+interval'1 days')::date::text
@@ -59,7 +57,6 @@ set timezone ='UTC-0';
 				group by created_date,d_date,d_month,uid
 
 			)
-			-- 每日国家渠道 订单统计
 			,tmp_total_pay as(
 				select o.created_date
 				,to_char( to_timestamp(o.created_at),'YYYY-MM-DD') as d_date
@@ -80,7 +77,6 @@ set timezone ='UTC-0';
 				,coalesce(u0.ad_channel,'UNKNOWN')
 
 			)
-			   -- 每日国家渠道 退款统计
 			,tmp_total_refund as(
 			    select r.refund_date
 				,to_char( to_timestamp(r.refund_time),'YYYY-MM-DD') as d_date
@@ -99,7 +95,6 @@ set timezone ='UTC-0';
 				,coalesce(u0.ad_channel,'UNKNOWN')
 
 			)
-			--  每日国家渠道广告开销统计
 			,tmp_total_cost as(
 				select c.created_date
 				,to_char( to_timestamp(c.created_at),'YYYY-MM-DD') as d_date
@@ -170,7 +165,6 @@ set timezone ='UTC-0';
 
 
 				union all
-				-- 标签为月的部分
 				select t0.d_date,t0.country_code,t0.ad_channel
 				,'month' as date_tag ,concat(t0.d_date,'-01') as d_mdate ,(case when t1.p_date is null then null else concat(t1.p_date,'-01') end)as p_mdate
 				,t1.p_date
@@ -226,6 +220,17 @@ set timezone ='UTC-0';
 					group by d_month,country_code,ad_channel
 				)tc on t0.d_date=tc.d_date and t0.country_code=tc.country_code and t0.ad_channel=tc.ad_channel
 		;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -357,6 +362,105 @@ set timezone ='UTC-0';
 			    ,sum(case when d_date::date between (p_date::date+interval'-98 d')::date and p_date::date  and (d_date::date+interval'98 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_98
 			    ,sum(case when d_date::date between (p_date::date+interval'-99 d')::date and p_date::date  and (d_date::date+interval'99 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_99
 			    ,sum(case when d_date::date between (p_date::date+interval'-100 d')::date and p_date::date  and (d_date::date+interval'100 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_100
+				,sum(case when d_date::date between (p_date::date+interval'-101 d')::date and p_date::date  and (d_date::date+interval'101 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_101
+				,sum(case when d_date::date between (p_date::date+interval'-102 d')::date and p_date::date  and (d_date::date+interval'102 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_102
+				,sum(case when d_date::date between (p_date::date+interval'-103 d')::date and p_date::date  and (d_date::date+interval'103 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_103
+				,sum(case when d_date::date between (p_date::date+interval'-104 d')::date and p_date::date  and (d_date::date+interval'104 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_104
+				,sum(case when d_date::date between (p_date::date+interval'-105 d')::date and p_date::date  and (d_date::date+interval'105 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_105
+				,sum(case when d_date::date between (p_date::date+interval'-106 d')::date and p_date::date  and (d_date::date+interval'106 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_106
+				,sum(case when d_date::date between (p_date::date+interval'-107 d')::date and p_date::date  and (d_date::date+interval'107 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_107
+				,sum(case when d_date::date between (p_date::date+interval'-108 d')::date and p_date::date  and (d_date::date+interval'108 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_108
+				,sum(case when d_date::date between (p_date::date+interval'-109 d')::date and p_date::date  and (d_date::date+interval'109 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_109
+				,sum(case when d_date::date between (p_date::date+interval'-110 d')::date and p_date::date  and (d_date::date+interval'110 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_110
+				,sum(case when d_date::date between (p_date::date+interval'-111 d')::date and p_date::date  and (d_date::date+interval'111 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_111
+				,sum(case when d_date::date between (p_date::date+interval'-112 d')::date and p_date::date  and (d_date::date+interval'112 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_112
+				,sum(case when d_date::date between (p_date::date+interval'-113 d')::date and p_date::date  and (d_date::date+interval'113 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_113
+				,sum(case when d_date::date between (p_date::date+interval'-114 d')::date and p_date::date  and (d_date::date+interval'114 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_114
+				,sum(case when d_date::date between (p_date::date+interval'-115 d')::date and p_date::date  and (d_date::date+interval'115 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_115
+				,sum(case when d_date::date between (p_date::date+interval'-116 d')::date and p_date::date  and (d_date::date+interval'116 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_116
+				,sum(case when d_date::date between (p_date::date+interval'-117 d')::date and p_date::date  and (d_date::date+interval'117 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_117
+				,sum(case when d_date::date between (p_date::date+interval'-118 d')::date and p_date::date  and (d_date::date+interval'118 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_118
+				,sum(case when d_date::date between (p_date::date+interval'-119 d')::date and p_date::date  and (d_date::date+interval'119 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_119
+				,sum(case when d_date::date between (p_date::date+interval'-120 d')::date and p_date::date  and (d_date::date+interval'120 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_120
+				,sum(case when d_date::date between (p_date::date+interval'-121 d')::date and p_date::date  and (d_date::date+interval'121 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_121
+				,sum(case when d_date::date between (p_date::date+interval'-122 d')::date and p_date::date  and (d_date::date+interval'122 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_122
+				,sum(case when d_date::date between (p_date::date+interval'-123 d')::date and p_date::date  and (d_date::date+interval'123 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_123
+				,sum(case when d_date::date between (p_date::date+interval'-124 d')::date and p_date::date  and (d_date::date+interval'124 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_124
+				,sum(case when d_date::date between (p_date::date+interval'-125 d')::date and p_date::date  and (d_date::date+interval'125 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_125
+				,sum(case when d_date::date between (p_date::date+interval'-126 d')::date and p_date::date  and (d_date::date+interval'126 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_126
+				,sum(case when d_date::date between (p_date::date+interval'-127 d')::date and p_date::date  and (d_date::date+interval'127 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_127
+				,sum(case when d_date::date between (p_date::date+interval'-128 d')::date and p_date::date  and (d_date::date+interval'128 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_128
+				,sum(case when d_date::date between (p_date::date+interval'-129 d')::date and p_date::date  and (d_date::date+interval'129 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_129
+				,sum(case when d_date::date between (p_date::date+interval'-130 d')::date and p_date::date  and (d_date::date+interval'130 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_130
+				,sum(case when d_date::date between (p_date::date+interval'-131 d')::date and p_date::date  and (d_date::date+interval'131 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_131
+				,sum(case when d_date::date between (p_date::date+interval'-132 d')::date and p_date::date  and (d_date::date+interval'132 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_132
+				,sum(case when d_date::date between (p_date::date+interval'-133 d')::date and p_date::date  and (d_date::date+interval'133 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_133
+				,sum(case when d_date::date between (p_date::date+interval'-134 d')::date and p_date::date  and (d_date::date+interval'134 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_134
+				,sum(case when d_date::date between (p_date::date+interval'-135 d')::date and p_date::date  and (d_date::date+interval'135 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_135
+				,sum(case when d_date::date between (p_date::date+interval'-136 d')::date and p_date::date  and (d_date::date+interval'136 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_136
+				,sum(case when d_date::date between (p_date::date+interval'-137 d')::date and p_date::date  and (d_date::date+interval'137 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_137
+				,sum(case when d_date::date between (p_date::date+interval'-138 d')::date and p_date::date  and (d_date::date+interval'138 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_138
+				,sum(case when d_date::date between (p_date::date+interval'-139 d')::date and p_date::date  and (d_date::date+interval'139 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_139
+				,sum(case when d_date::date between (p_date::date+interval'-140 d')::date and p_date::date  and (d_date::date+interval'140 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_140
+				,sum(case when d_date::date between (p_date::date+interval'-141 d')::date and p_date::date  and (d_date::date+interval'141 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_141
+				,sum(case when d_date::date between (p_date::date+interval'-142 d')::date and p_date::date  and (d_date::date+interval'142 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_142
+				,sum(case when d_date::date between (p_date::date+interval'-143 d')::date and p_date::date  and (d_date::date+interval'143 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_143
+				,sum(case when d_date::date between (p_date::date+interval'-144 d')::date and p_date::date  and (d_date::date+interval'144 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_144
+				,sum(case when d_date::date between (p_date::date+interval'-145 d')::date and p_date::date  and (d_date::date+interval'145 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_145
+				,sum(case when d_date::date between (p_date::date+interval'-146 d')::date and p_date::date  and (d_date::date+interval'146 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_146
+				,sum(case when d_date::date between (p_date::date+interval'-147 d')::date and p_date::date  and (d_date::date+interval'147 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_147
+				,sum(case when d_date::date between (p_date::date+interval'-148 d')::date and p_date::date  and (d_date::date+interval'148 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_148
+				,sum(case when d_date::date between (p_date::date+interval'-149 d')::date and p_date::date  and (d_date::date+interval'149 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_149
+				,sum(case when d_date::date between (p_date::date+interval'-150 d')::date and p_date::date  and (d_date::date+interval'150 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_150
+				,sum(case when d_date::date between (p_date::date+interval'-151 d')::date and p_date::date  and (d_date::date+interval'151 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_151
+				,sum(case when d_date::date between (p_date::date+interval'-152 d')::date and p_date::date  and (d_date::date+interval'152 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_152
+				,sum(case when d_date::date between (p_date::date+interval'-153 d')::date and p_date::date  and (d_date::date+interval'153 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_153
+				,sum(case when d_date::date between (p_date::date+interval'-154 d')::date and p_date::date  and (d_date::date+interval'154 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_154
+				,sum(case when d_date::date between (p_date::date+interval'-155 d')::date and p_date::date  and (d_date::date+interval'155 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_155
+				,sum(case when d_date::date between (p_date::date+interval'-156 d')::date and p_date::date  and (d_date::date+interval'156 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_156
+				,sum(case when d_date::date between (p_date::date+interval'-157 d')::date and p_date::date  and (d_date::date+interval'157 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_157
+				,sum(case when d_date::date between (p_date::date+interval'-158 d')::date and p_date::date  and (d_date::date+interval'158 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_158
+				,sum(case when d_date::date between (p_date::date+interval'-159 d')::date and p_date::date  and (d_date::date+interval'159 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_159
+				,sum(case when d_date::date between (p_date::date+interval'-160 d')::date and p_date::date  and (d_date::date+interval'160 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_160
+				,sum(case when d_date::date between (p_date::date+interval'-161 d')::date and p_date::date  and (d_date::date+interval'161 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_161
+				,sum(case when d_date::date between (p_date::date+interval'-162 d')::date and p_date::date  and (d_date::date+interval'162 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_162
+				,sum(case when d_date::date between (p_date::date+interval'-163 d')::date and p_date::date  and (d_date::date+interval'163 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_163
+				,sum(case when d_date::date between (p_date::date+interval'-164 d')::date and p_date::date  and (d_date::date+interval'164 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_164
+				,sum(case when d_date::date between (p_date::date+interval'-165 d')::date and p_date::date  and (d_date::date+interval'165 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_165
+				,sum(case when d_date::date between (p_date::date+interval'-166 d')::date and p_date::date  and (d_date::date+interval'166 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_166
+				,sum(case when d_date::date between (p_date::date+interval'-167 d')::date and p_date::date  and (d_date::date+interval'167 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_167
+				,sum(case when d_date::date between (p_date::date+interval'-168 d')::date and p_date::date  and (d_date::date+interval'168 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_168
+				,sum(case when d_date::date between (p_date::date+interval'-169 d')::date and p_date::date  and (d_date::date+interval'169 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_169
+				,sum(case when d_date::date between (p_date::date+interval'-170 d')::date and p_date::date  and (d_date::date+interval'170 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_170
+				,sum(case when d_date::date between (p_date::date+interval'-171 d')::date and p_date::date  and (d_date::date+interval'171 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_171
+				,sum(case when d_date::date between (p_date::date+interval'-172 d')::date and p_date::date  and (d_date::date+interval'172 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_172
+				,sum(case when d_date::date between (p_date::date+interval'-173 d')::date and p_date::date  and (d_date::date+interval'173 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_173
+				,sum(case when d_date::date between (p_date::date+interval'-174 d')::date and p_date::date  and (d_date::date+interval'174 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_174
+				,sum(case when d_date::date between (p_date::date+interval'-175 d')::date and p_date::date  and (d_date::date+interval'175 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_175
+				,sum(case when d_date::date between (p_date::date+interval'-176 d')::date and p_date::date  and (d_date::date+interval'176 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_176
+				,sum(case when d_date::date between (p_date::date+interval'-177 d')::date and p_date::date  and (d_date::date+interval'177 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_177
+				,sum(case when d_date::date between (p_date::date+interval'-178 d')::date and p_date::date  and (d_date::date+interval'178 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_178
+				,sum(case when d_date::date between (p_date::date+interval'-179 d')::date and p_date::date  and (d_date::date+interval'179 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_179
+				,sum(case when d_date::date between (p_date::date+interval'-180 d')::date and p_date::date  and (d_date::date+interval'180 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_180
+				,sum(case when d_date::date between (p_date::date+interval'-185 d')::date and p_date::date  and (d_date::date+interval'185 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_185
+				,sum(case when d_date::date between (p_date::date+interval'-195 d')::date and p_date::date  and (d_date::date+interval'195 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_195
+				,sum(case when d_date::date between (p_date::date+interval'-205 d')::date and p_date::date  and (d_date::date+interval'205 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_205
+				,sum(case when d_date::date between (p_date::date+interval'-215 d')::date and p_date::date  and (d_date::date+interval'215 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_215
+				,sum(case when d_date::date between (p_date::date+interval'-225 d')::date and p_date::date  and (d_date::date+interval'225 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_225
+				,sum(case when d_date::date between (p_date::date+interval'-235 d')::date and p_date::date  and (d_date::date+interval'235 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_235
+				,sum(case when d_date::date between (p_date::date+interval'-245 d')::date and p_date::date  and (d_date::date+interval'245 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_245
+				,sum(case when d_date::date between (p_date::date+interval'-255 d')::date and p_date::date  and (d_date::date+interval'255 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_255
+				,sum(case when d_date::date between (p_date::date+interval'-265 d')::date and p_date::date  and (d_date::date+interval'265 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_265
+				,sum(case when d_date::date between (p_date::date+interval'-275 d')::date and p_date::date  and (d_date::date+interval'275 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_275
+				,sum(case when d_date::date between (p_date::date+interval'-285 d')::date and p_date::date  and (d_date::date+interval'285 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_285
+				,sum(case when d_date::date between (p_date::date+interval'-295 d')::date and p_date::date  and (d_date::date+interval'295 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_295
+				,sum(case when d_date::date between (p_date::date+interval'-305 d')::date and p_date::date  and (d_date::date+interval'305 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_305
+				,sum(case when d_date::date between (p_date::date+interval'-315 d')::date and p_date::date  and (d_date::date+interval'315 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_315
+				,sum(case when d_date::date between (p_date::date+interval'-325 d')::date and p_date::date  and (d_date::date+interval'325 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_325
+				,sum(case when d_date::date between (p_date::date+interval'-335 d')::date and p_date::date  and (d_date::date+interval'335 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_335
+				,sum(case when d_date::date between (p_date::date+interval'-345 d')::date and p_date::date  and (d_date::date+interval'345 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_345
+				,sum(case when d_date::date between (p_date::date+interval'-355 d')::date and p_date::date  and (d_date::date+interval'355 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_355
+				,sum(case when d_date::date between (p_date::date+interval'-365 d')::date and p_date::date  and (d_date::date+interval'365 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_365
 			from analysis.dw_operate_roi_v2_calc01 t1
 			left join v_dim_country_area cc on t1.country_code=cc.country_code
 			where date_tag='day'
@@ -504,6 +608,105 @@ set timezone ='UTC-0';
 			    ,sum(case when d_mdate::date between (p_mdate::date+interval'-98 month')::date and p_mdate::date  and (d_mdate::date+interval'98 month')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_98
 			    ,sum(case when d_mdate::date between (p_mdate::date+interval'-99 month')::date and p_mdate::date  and (d_mdate::date+interval'99 month')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_99
 			    ,sum(case when d_mdate::date between (p_mdate::date+interval'-100 month')::date and p_mdate::date  and (d_mdate::date+interval'100 month')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_100
+				,0 as pay_101
+				,0 as pay_102
+				,0 as pay_103
+				,0 as pay_104
+				,0 as pay_105
+				,0 as pay_106
+				,0 as pay_107
+				,0 as pay_108
+				,0 as pay_109
+				,0 as pay_110
+				,0 as pay_111
+				,0 as pay_112
+				,0 as pay_113
+				,0 as pay_114
+				,0 as pay_115
+				,0 as pay_116
+				,0 as pay_117
+				,0 as pay_118
+				,0 as pay_119
+				,0 as pay_120
+				,0 as pay_121
+				,0 as pay_122
+				,0 as pay_123
+				,0 as pay_124
+				,0 as pay_125
+				,0 as pay_126
+				,0 as pay_127
+				,0 as pay_128
+				,0 as pay_129
+				,0 as pay_130
+				,0 as pay_131
+				,0 as pay_132
+				,0 as pay_133
+				,0 as pay_134
+				,0 as pay_135
+				,0 as pay_136
+				,0 as pay_137
+				,0 as pay_138
+				,0 as pay_139
+				,0 as pay_140
+				,0 as pay_141
+				,0 as pay_142
+				,0 as pay_143
+				,0 as pay_144
+				,0 as pay_145
+				,0 as pay_146
+				,0 as pay_147
+				,0 as pay_148
+				,0 as pay_149
+				,0 as pay_150
+				,0 as pay_151
+				,0 as pay_152
+				,0 as pay_153
+				,0 as pay_154
+				,0 as pay_155
+				,0 as pay_156
+				,0 as pay_157
+				,0 as pay_158
+				,0 as pay_159
+				,0 as pay_160
+				,0 as pay_161
+				,0 as pay_162
+				,0 as pay_163
+				,0 as pay_164
+				,0 as pay_165
+				,0 as pay_166
+				,0 as pay_167
+				,0 as pay_168
+				,0 as pay_169
+				,0 as pay_170
+				,0 as pay_171
+				,0 as pay_172
+				,0 as pay_173
+				,0 as pay_174
+				,0 as pay_175
+				,0 as pay_176
+				,0 as pay_177
+				,0 as pay_178
+				,0 as pay_179
+				,0 as pay_180
+				,0 as pay_185
+				,0 as pay_195
+				,0 as pay_205
+				,0 as pay_215
+				,0 as pay_225
+				,0 as pay_235
+				,0 as pay_245
+				,0 as pay_255
+				,0 as pay_265
+				,0 as pay_275
+				,0 as pay_285
+				,0 as pay_295
+				,0 as pay_305
+				,0 as pay_315
+				,0 as pay_325
+				,0 as pay_335
+				,0 as pay_345
+				,0 as pay_355
+				,0 as pay_365
 			from analysis.dw_operate_roi_v2_calc01 t1
 			left join v_dim_country_area cc on t1.country_code=cc.country_code
 			where date_tag='month'
@@ -523,6 +726,8 @@ set timezone ='UTC-0';
 			,t1.new_pay_order_total
 			,t1.new_pay_amt_total
 		; -- 月
+
+
 
 			truncate table public.dw_operate_roi_v2;
 			insert into public.dw_operate_roi_v2  select * from analysis.dw_operate_roi_v2_tmp01;
