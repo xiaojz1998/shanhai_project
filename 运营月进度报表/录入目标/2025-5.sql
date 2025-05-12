@@ -108,4 +108,5 @@ values ('2025-05','语言','总体',8300000,4000000,4300000,1.1,0.58,0.05,
 
 
 
-
+-- 修改arpu
+update dw_area_month_budget SET bud_arpu = 0.72 where d_month = '2025-05' and bud_area = '总体'

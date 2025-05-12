@@ -90,7 +90,8 @@ tmp_af_purchase as(
          end as lang_name,                               -- 合并语言
 	    event_revenue_usd * 0.01 as event_revenue_usd,   -- 变现收益 美分转美元
 	    created_date::date as p_date,                    -- 交易日期
-	    install_time::date as d_date                     -- 安装日期
+	    install_time::date as d_date,                     -- 安装日期
+	    conversion_type                                   -- 用于判断af视图类型
 	from public.dwd_app_purchase_event_log a
 	left join dwd_user_info b on a.uid::text = b.uid        -- 关联用户表取得语言
 	where event_name in('af_purchase','Purchase')
@@ -101,12 +102,12 @@ tmp_af_daily as (
         t1.p_date,
         t1.lang_name,
         round(sum(t1.event_revenue_usd),2) as total_pay_amt,     -- 当日总收入
-        round(sum( case when t1.p_date=t1.d_date then t1.event_revenue_usd else 0 end),2) as af_d0  -- 当日新用户收入
+        round(sum( case when t1.p_date=t1.d_date and conversion_type in ('install','unknown')then t1.event_revenue_usd else 0 end),2) as af_d0  -- 当日新用户收入
     from tmp_af_purchase t1
     group by
         t1.p_date,
         t1.lang_name
-),
+) ,
 tmp_af_daily_with_month_accum_payamt as (
     select
         p_date,
@@ -119,18 +120,18 @@ tmp_af_daily_with_month_accum_payamt as (
 select
   t2.日期,
   t2.语言,
-  总充值金额 as "昨天总充值金额($)",
-  新用户充值金额 as "昨天新用户充值金额($)",
-  老用户充值金额 as "昨天老用户充值金额($)",
-  消耗 as "昨天消耗($)",
+  总充值金额 as "昨天总充值金额",
+  新用户充值金额 as "昨天新用户充值金额",
+  老用户充值金额 as "昨天老用户充值金额",
+  消耗 as "昨天消耗",
   新用户ROI as 昨天新用户ROI,
   整体ROI as 昨天整体ROI,
   case when 消耗 = 0 then 0 else round(1.0* af_d0 / 消耗,2) end "昨日新用户ROI(af口径)",
   case when 消耗 = 0 then 0 else round(1.0* total_pay_amt / 消耗,2) end "昨日整体ROI(af口径)",
   dau as "昨天DAU",
   concat(cast(昨天留存率 as varchar),'%') 昨天留存率,
-  当月累计收入 as "当月累计收入($)",
-  当月累计消耗 as "当月累计消耗($)",
+  当月累计收入 as "当月累计收入",
+  当月累计消耗 as "当月累计消耗",
   case when 当月累计消耗 = 0 then 0 else round((当月累计收入 - 当月累计退款) * 1.0 / 当月累计消耗,2) end 当月整体ROI,
   case when 当月累计消耗 = 0 then 0 else round(month_accum_payamt * 1.0/当月累计消耗,2) end "当月整体ROI(af口径)"
 from t2

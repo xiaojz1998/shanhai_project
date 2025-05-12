@@ -1,7 +1,7 @@
 ------------------------------------------
--- file: dw_operate_schedule_运营月进度_全量h.sql
+-- file: dw_operate_schedule_运营月进度_增3天_h.sql
 -- author: xiaoj
--- time: 2025/5/7 23:41
+-- time: 2025/5/9 16:46
 -- description:
 ------------------------------------------
 
@@ -138,12 +138,12 @@ CREATE TABLE if not exists public.dw_operate_schedule (
 -- 设置timezone
 set timezone ='UTC-0';
 -- 全量更新
-truncate table tmp.dw_operate_schedule_tmp ;
-insert into tmp.dw_operate_schedule_tmp
+-- truncate table tmp.dw_operate_schedule_tmp ;
+-- insert into tmp.dw_operate_schedule_tmp
 
 -- 增量更新 3天
--- delete from tmp.dw_operate_schedule_tmp where d_date>= (current_date+interval '-2 day')::date::text;
--- insert into tmp.dw_operate_schedule_tmp
+delete from tmp.dw_operate_schedule_tmp where d_date>= (current_date+interval '-2 day')::date::text;
+insert into tmp.dw_operate_schedule_tmp
 
 -- 脚本
 -- 新增用户信息，用于补全国家和语言
@@ -188,17 +188,17 @@ with new_reg_users as (
 		and a.vid>0 and a.eid>0
 		-- and a.watch_time >3
 		-- 全量更新
-		and to_timestamp(a.created_at) :: date>='2024-11-01'
+-- 		and to_timestamp(a.created_at) :: date>='2024-11-01'
 		-- 增量更新
-		-- and to_timestamp(a.created_at) :: date>=(current_date+interval '-2 day')::date
+		and to_timestamp(a.created_at) :: date>=(current_date+interval '-2 day')::date
 		group by to_timestamp(a.created_at) :: date
 		,a.country_code
 		,a.uid
 	)a
 	left join new_reg_users u0 on a.uid=u0.uid
 	group by a.d_date::text
-	,coalesce(u0.country_code,'UNKNOWN')
-	,coalesce(u0.lang,'UNKNOWN')
+	        ,coalesce(u0.country_code,'UNKNOWN')
+	        ,coalesce(u0.lang,'UNKNOWN')
 )
 -- 求出pay_7 用于计算roi7
 -- 求出累计pay 用于计算新用户累计支付和累计roi
@@ -232,9 +232,9 @@ with new_reg_users as (
                 from public.all_order_log o                                 -- 用户订单表
                 where o.environment = 1 and o.os in('android','ios')
                 -- 全量更新
-                and created_date>=20240701
+--                 and created_date>=20240701
                 -- 增量更新
-                -- and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
+                and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
                 group by
                 to_char( to_timestamp(created_at),'YYYY-MM-DD')
                 ,uid
@@ -268,9 +268,9 @@ with new_reg_users as (
     		where r.environment = 1  and r.os in('android','ios')
     		and r.status = 1
     		-- 全量更新
-            and r.refund_date>=20240701
+--             and r.refund_date>=20240701
     		-- 增量更新
-            -- and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
+            and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
     		group by (to_char(to_timestamp(created_at),'YYYY-MM-DD'))::date,r.uid
     		) t2 on t1.uid = t2.uid and t1.d_date <= t2.d_date
         group by t1.d_date,t2.d_date, coalesce(t1.country_code,'UNKNOWN'), coalesce(t1.lang,'UNKNOWN')) t3
@@ -302,7 +302,7 @@ with new_reg_users as (
         ,click_count as click_unt
         from public."oversea-api_osd_pushed" x
         -- 增量更新
-        -- where (to_timestamp(pushed_at) at time zone 'UTC-8') ::date >=(current_date+interval '-2 day')::date
+        where (to_timestamp(pushed_at) at time zone 'UTC-8') ::date >=(current_date+interval '-2 day')::date
     )t1
     left join(
         select t1.*,t2."name" as lang_name
@@ -472,14 +472,14 @@ from tmp_operate t1
 left join tmp_watch t2 on t1.d_date=t2.d_date and t1.country_code=t2.country_code and t1.lang=t2.lang
 left join tmp_pay t3 on t1.d_date=t3.d_date::text and t1.country_code=t3.country_code and t1.lang=t3.lang
 left join tmp_push t4 on t1.d_date = t4.push_date::text and t1.lang_name = t4.lang
-left join tmp_refund t5 on t1.d_date = t5.d_date::text and t1.country_code = t5.country_code and t1.lang = t5.lang;
+left join tmp_refund t5 on t1.d_date = t5.d_date::text and t1.country_code = t5.country_code and t1.lang = t5.lang
 -- 增量更新
--- where 1=1 and t1.d_date>= (current_date+interval '-2 day')::date::text;
+where 1=1 and t1.d_date>= (current_date+interval '-2 day')::date::text;
 
 --全量更新
-truncate table public.dw_operate_schedule ;
-insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp;
+-- truncate table public.dw_operate_schedule ;
+-- insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp;
 
 -- 增量更新
--- delete from public.dw_operate_schedule where d_date>= (current_date+interval '-2 day')::date::text;
--- insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp where d_date>= (current_date+interval '-2 day')::date::text;
+delete from public.dw_operate_schedule where d_date>= (current_date+interval '-2 day')::date::text;
+insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp where d_date>= (current_date+interval '-2 day')::date::text;

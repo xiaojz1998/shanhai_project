@@ -1,152 +1,12 @@
 ------------------------------------------
--- file: dw_operate_schedule_运营月进度_全量h.sql
+-- file: dw_operate_schedule_运营月进度_增3天_h.sql
 -- author: xiaoj
--- time: 2025/5/7 23:41
+-- time: 2025/5/10 12:56
 -- description:
 ------------------------------------------
-
-------------------------------------------
--- 建tmp.dw_operate_schedule_tmp 临时表
-------------------------------------------
--- drop table if exists tmp.dw_operate_schedule_tmp;
-CREATE TABLE if not exists tmp.dw_operate_schedule_tmp (
-    d_date text NOT NULL,
-    country_code text NOT NULL,
-    country_name text NOT NULL,
-    area text NOT NULL,
-    lang text NOT NULL,
-    lang_name text,
-    dau integer,
-    dau_7login integer,
-    new_dau integer,
-    new_dau_2login integer,
-    old_dau integer,
-    old_dau_2login integer,
-    pay_order integer,
-    pay_user integer,
-    pay_amt numeric(20,2),
-    ad_income_amt numeric(20,2),
-    new_pay_order integer,
-    new_pay_user integer,
-    new_pay_amt numeric(20,2),
-    old_pay_order integer,
-    old_pay_user integer,
-    old_pay_amt numeric(20,2),
-    month_income numeric(20,2),
-    vid_watch_cnt integer,
-    eid_watch_cnt integer,
-    watch_duration numeric(20,2),
-    watch_user integer,
-    eidpay_watch_cnt integer,
-    eidfree_watch_cnt integer,
-    eidpay_watch_user integer,
-    eidfree_watch_user integer,
-    ad_cost numeric(20,2),
-    ad_cost_tt numeric(20,2),
-    ad_cost_fb numeric(20,2),
-    ad_cost_asa numeric(20,2),
-    ad_cost_other numeric(20,2),
-    pay_refund_amt numeric(20,2),
-    dau_2login integer,
-    dau_3login integer,
-    dau_14login integer,
-    dau_30login integer,
-    month_ad_cost numeric(20,2),
-    pay_amt_per_user numeric(20,2),
-    total_roi numeric(20,2),
-    repay_user integer,
-    due_user integer,
-    subscription_rate numeric(20,2),
-    total_retention_rate_7d numeric(20,2),
-    pay_7 numeric(20,2),
-    pay_total numeric(20,2),
-    refund_7 numeric(20,2),
-    total_push_unt integer,
-    total_click_unt integer,
-    push_click_rate numeric(20,2)
-    ,PRIMARY KEY (d_date, country_code, lang)
-);
-
-
-
-------------------------------------------
--- 建dw_operate_schedule表
-------------------------------------------
--- drop table if exists public.dw_operate_schedule;
-CREATE TABLE if not exists public.dw_operate_schedule (
-    d_date text NOT NULL,
-    country_code text NOT NULL,
-    country_name text NOT NULL,
-    area text NOT NULL,
-    lang text NOT NULL,
-    lang_name text,
-    dau integer,
-    dau_7login integer,
-    new_dau integer,
-    new_dau_2login integer,
-    old_dau integer,
-    old_dau_2login integer,
-    pay_order integer,
-    pay_user integer,
-    pay_amt numeric(20,2),
-    ad_income_amt numeric(20,2),
-    new_pay_order integer,
-    new_pay_user integer,
-    new_pay_amt numeric(20,2),
-    old_pay_order integer,
-    old_pay_user integer,
-    old_pay_amt numeric(20,2),
-    month_income numeric(20,2),
-    vid_watch_cnt integer,
-    eid_watch_cnt integer,
-    watch_duration numeric(20,2),
-    watch_user integer,
-    eidpay_watch_cnt integer,
-    eidfree_watch_cnt integer,
-    eidpay_watch_user integer,
-    eidfree_watch_user integer,
-    ad_cost numeric(20,2),
-    ad_cost_tt numeric(20,2),
-    ad_cost_fb numeric(20,2),
-    ad_cost_asa numeric(20,2),
-    ad_cost_other numeric(20,2),
-    pay_refund_amt numeric(20,2),
-    dau_2login integer,
-    dau_3login integer,
-    dau_14login integer,
-    dau_30login integer,
-    month_ad_cost numeric(20,2),
-    pay_amt_per_user numeric(20,2),
-    total_roi numeric(20,2),
-    repay_user integer,
-    due_user integer,
-    subscription_rate numeric(20,2),
-    total_retention_rate_7d numeric(20,2),
-    pay_7 numeric(20,2),
-    pay_total numeric(20,2),
-    refund_7 numeric(20,2),
-    total_push_unt integer,
-    total_click_unt integer,
-    push_click_rate numeric(20,2)
-    ,PRIMARY KEY (d_date, country_code, lang)
-);
-
-
-
-
-
--- 设置timezone
 set timezone ='UTC-0';
--- 全量更新
-truncate table tmp.dw_operate_schedule_tmp ;
-insert into tmp.dw_operate_schedule_tmp
-
--- 增量更新 3天
--- delete from tmp.dw_operate_schedule_tmp where d_date>= (current_date+interval '-2 day')::date::text;
--- insert into tmp.dw_operate_schedule_tmp
-
--- 脚本
--- 新增用户信息，用于补全国家和语言
+delete from tmp.dw_operate_schedule_tmp02 where d_date>= (current_date+interval '-2 day')::date::text;
+insert into tmp.dw_operate_schedule_tmp02
 with new_reg_users as (
 	select v_date as created_date
 	,d_date::date as d_date
@@ -177,8 +37,8 @@ with new_reg_users as (
 		,a.uid
 		,count(distinct a.vid) as vid_watch_cnt -- 每人看短剧数
 		,count(distinct a.eid) as eid_watch_cnt -- 每人看剧集数
-		,count(distinct case when e.sort >= c.pay_num then a.eid else null end) as eidpay_watch_cnt     -- 付费集观看数量
-		,count(distinct case when e.sort <  c.pay_num then a.eid else null end) as eidfree_watch_cnt    -- 免费集观看数量
+		,count(distinct case when e.sort >= c.pay_num then a.eid else null end) as eidpay_watch_cnt
+		,count(distinct case when e.sort <  c.pay_num then a.eid else null end) as eidfree_watch_cnt
 		,sum(case when a.event=2 then watch_time else 0 end) as watch_duration -- "看剧时长(分钟)"
 		from public.app_user_track_log a
 		left join "oversea-api_osd_videos" c on a.vid = c.id
@@ -187,10 +47,8 @@ with new_reg_users as (
 		and a.event in (1,2,13,14)
 		and a.vid>0 and a.eid>0
 		-- and a.watch_time >3
-		-- 全量更新
-		and to_timestamp(a.created_at) :: date>='2024-11-01'
-		-- 增量更新
-		-- and to_timestamp(a.created_at) :: date>=(current_date+interval '-2 day')::date
+		--and to_timestamp(a.created_at) :: date>='2024-11-01'
+		and to_timestamp(a.created_at) :: date>=(current_date+interval '-2 day')::date
 		group by to_timestamp(a.created_at) :: date
 		,a.country_code
 		,a.uid
@@ -200,15 +58,13 @@ with new_reg_users as (
 	,coalesce(u0.country_code,'UNKNOWN')
 	,coalesce(u0.lang,'UNKNOWN')
 )
--- 求出pay_7 用于计算roi7
--- 求出累计pay 用于计算新用户累计支付和累计roi
+-- 求出pay_7
 ,tmp_pay as (
     select
         d_date,
         country_code,
         lang,
-        sum(case when d_date::date between (p_date::date+interval'- 7 d')::date and p_date::date  and (d_date::date+interval' 7 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_7,
-        sum(case when p_date::date <= current_date - 1 then new_pay_amt else null end)::decimal(20,2) as pay_total
+        sum(case when d_date::date between (p_date::date+interval'- 7 d')::date and p_date::date  and (d_date::date+interval' 7 d')<=(current_date+interval'-1 d') then new_pay_amt else null end)::decimal(20,2) as pay_7
     from (
     select
         t1.d_date,
@@ -231,10 +87,8 @@ with new_reg_users as (
                 ,sum(case when o.status = 1 then o.money*0.01 else 0 end) as  pay_amt  -- 成功充值金额
                 from public.all_order_log o                                 -- 用户订单表
                 where o.environment = 1 and o.os in('android','ios')
-                -- 全量更新
                 and created_date>=20240701
-                -- 增量更新
-                -- and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
+                and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
                 group by
                 to_char( to_timestamp(created_at),'YYYY-MM-DD')
                 ,uid
@@ -267,10 +121,8 @@ with new_reg_users as (
     		from public.all_refund_order_log r
     		where r.environment = 1  and r.os in('android','ios')
     		and r.status = 1
-    		-- 全量更新
             and r.refund_date>=20240701
-    		-- 增量更新
-            -- and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
+    		and to_timestamp(created_at)::date  >=(current_date+interval '-2 day')::date
     		group by (to_char(to_timestamp(created_at),'YYYY-MM-DD'))::date,r.uid
     		) t2 on t1.uid = t2.uid and t1.d_date <= t2.d_date
         group by t1.d_date,t2.d_date, coalesce(t1.country_code,'UNKNOWN'), coalesce(t1.lang,'UNKNOWN')) t3
@@ -296,13 +148,13 @@ with new_reg_users as (
     from(
         select
          id::text as push_id
-        ,to_timestamp(pushed_at) at time zone 'UTC-8' as push_time  --,to_timestamp(pushed_at) at time zone 'UTC-8'
-        ,json_array_elements((REGEXP_MATCH(replace(user_layered_configs, '\"', '"'),'\[.*?\]'))[1]::json) ->> 'id' as layered_id
+        ,(to_timestamp(pushed_at) at time zone 'UTC-8') as push_time  --,to_timestamp(pushed_at) at time zone 'UTC-8'
+		,json_array_elements((REGEXP_MATCH(replace(user_layered_configs, '\', ''),'\[.*?\]'))[1]::json)->> 'id' as layered_id
+        --,json_array_elements(user_layered_configs::json ) ->> 'id' as layered_id
         ,delivered_count as push_unt
         ,click_count as click_unt
         from public."oversea-api_osd_pushed" x
-        -- 增量更新
-        -- where (to_timestamp(pushed_at) at time zone 'UTC-8') ::date >=(current_date+interval '-2 day')::date
+        where (to_timestamp(pushed_at) at time zone 'UTC-8') ::date >=(current_date+interval '-2 day')::date
     )t1
     left join(
         select t1.*,t2."name" as lang_name
@@ -355,9 +207,9 @@ with new_reg_users as (
 	,case when SUM(dau) = 0 then 0 else SUM(pay_amt) / SUM(dau) end as pay_amt_per_user     -- 客单价
 	,CASE WHEN SUM(ad_cost) = 0.00  THEN 0 ELSE SUM(pay_amt+ad_income_amt-pay_refund_amt) / SUM(ad_cost) END as total_ROI   -- 总roi
 	,sum(repay_user) as repay_user
-	,sum(due_user)   as due_user
-	,case when sum(due_user)=0 then null  else 1.0*sum(repay_user)/sum(due_user) end as subscription_rate
-	,case when sum(dau)=0 then null else 1.0*sum(dau_7login)/sum(dau) end as total_retention_rate_7d
+	,sum(due_user) as due_user
+	,case when sum(due_user)=0 then null  else 1.0*sum(repay_user)/sum(due_user) end as subscription_rate       -- 续订率
+	,case when sum(dau)=0 then null else 1.0*sum(dau_7login)/sum(dau) end as total_retention_rate_7d            -- 7日留存率
 	from public.dw_operate_view t1
 	group by
 	t1.d_date
@@ -463,7 +315,6 @@ select
 ,t1.subscription_rate           -- 续订率
 ,t1.total_retention_rate_7d     -- 7日留存率
 ,pay_7                          -- 7日支付
-,pay_total                      -- 累计到昨天支付
 ,refund_7                       -- 7日退款
 ,total_push_unt                 -- 触及人数
 ,total_click_unt                -- 点击人数
@@ -472,14 +323,8 @@ from tmp_operate t1
 left join tmp_watch t2 on t1.d_date=t2.d_date and t1.country_code=t2.country_code and t1.lang=t2.lang
 left join tmp_pay t3 on t1.d_date=t3.d_date::text and t1.country_code=t3.country_code and t1.lang=t3.lang
 left join tmp_push t4 on t1.d_date = t4.push_date::text and t1.lang_name = t4.lang
-left join tmp_refund t5 on t1.d_date = t5.d_date::text and t1.country_code = t5.country_code and t1.lang = t5.lang;
--- 增量更新
--- where 1=1 and t1.d_date>= (current_date+interval '-2 day')::date::text;
-
---全量更新
-truncate table public.dw_operate_schedule ;
-insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp;
-
--- 增量更新
--- delete from public.dw_operate_schedule where d_date>= (current_date+interval '-2 day')::date::text;
--- insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp where d_date>= (current_date+interval '-2 day')::date::text;
+left join tmp_refund t5 on t1.d_date = t5.d_date::text and t1.country_code = t5.country_code and t1.lang = t5.lang
+where 1=1 and t1.d_date>= (current_date+interval '-2 day')::date::text;
+--从临时表导入主表
+delete from public.dw_operate_schedule where d_date>= (current_date+interval '-2 day')::date::text;
+insert into public.dw_operate_schedule select * from tmp.dw_operate_schedule_tmp02 where d_date>= (current_date+interval '-2 day')::date::text;

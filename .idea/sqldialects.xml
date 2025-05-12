@@ -51,10 +51,14 @@
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-建表tmp.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/ads_operate_roi_af.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/老板群飞书推送-不分语言.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/老板群飞书推送-不分语言v1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/老板群飞书推送-分语言.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/新sql/老板群飞书推送-分语言.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/新sql/老板飞书群推送-整体.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/测试/分语言提取新字段.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/测试/验证.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/测试/验证1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位报表_首页新用户扩量0401_增量两天_h.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_退出挽留_增量两天_h.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" dialect="PostgreSQL" />
@@ -95,6 +99,9 @@
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/测试/测试1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/4月/新sql/bi新sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/5月/新sql/dw_operate_schedule_运营月进度_全量h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/5月/新sql/字段实现.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/5月/新sql/推送.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/5月/新sql/新bi.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/录入目标/2025-3.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/录入目标/2025-4.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/录入目标/2025-5.sql" dialect="PostgreSQL" />
