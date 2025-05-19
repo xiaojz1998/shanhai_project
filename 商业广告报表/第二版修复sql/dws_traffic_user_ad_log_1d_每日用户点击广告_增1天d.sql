@@ -4,9 +4,61 @@
 -- time: 2025/5/13 16:22
 -- description:
 ------------------------------------------
+
+-------------------------------------------------------
+-- 建表语句
+-------------------------------------------------------
+-- drop table if exists tmp.tmp_dws_traffic_user_ad_log_1d;
+create table if not exists tmp.tmp_dws_traffic_user_ad_log_1d
+(
+    uid bigint,
+    d_date  date,
+    country_code    text,
+    event   bigint,
+    event_name  text,
+    ad_type  text,
+    country_name    text,
+    area    text,
+    lang    text,
+    lang_name   text,
+    os  text,
+    pv  bigint,
+    is_new_user int,
+    is_pay_user int
+);
+
+-- drop table if exists public.dws_traffic_user_ad_log_1d;
+create table if not exists public.dws_traffic_user_ad_log_1d
+(
+    uid bigint,
+    d_date  date,
+    country_code    text,
+    event   bigint,
+    event_name  text,
+    ad_type  text,
+    country_name    text,
+    area    text,
+    lang    text,
+    lang_name   text,
+    os  text,
+    pv  bigint,
+    is_new_user int,
+    is_pay_user int
+);
+-------------------------------------------------------
+-- 更新语句
+-------------------------------------------------------
+
 set timezone ='UTC-0';
--- 增量表
-delete from tmp.tmp_dws_traffic_user_ad_log_1d where d_date>= (current_date+interval '-2 day')::date;
+
+-- 全量更新
+-- truncate table tmp.tmp_dws_traffic_user_ad_log_1d;
+-- insert into tmp.tmp_dws_traffic_user_ad_log_1d
+-- 增量更新
+-- delete from tmp.tmp_dws_traffic_user_ad_log_1d where d_date>= (current_date+interval '-2 day')::date;
+-- insert into tmp.tmp_dws_traffic_user_ad_log_1d
+-- 分段更新
+delete from tmp.tmp_dws_traffic_user_ad_log_1d where d_date>= '2024-09-14'::date and d_date <= '2025-01-01'::date;
 insert into tmp.tmp_dws_traffic_user_ad_log_1d
 with tmp_user_ad_log as (
     -- 埋点表和性能埋点表 取到广告相关条
@@ -19,14 +71,19 @@ with tmp_user_ad_log as (
         event_name,
         case when event in (39,36) then '签到广告'
             when event = 262 then '开屏/插屏广告'
-            when event = 5 then '剧集解锁广告'
+            when event = 191 then '剧集解锁广告'
             when event = 41 then '阶梯广告'
             when event = 266 then 'firefly广告'
             when event = 269 then 'adcloud广告' end as ad_type
     from app_user_track_log
     where to_timestamp(created_at)::date >= '2024-09-01'    -- 2024/9/14 有广告数据
-         and (event in (262,266,269,39,36,5) or (event = 41 and GET_JSON_OBJECT(ext_body,'$.task') = 'Watch Ads' ))
-         and to_timestamp(created_at)::date >= (current_date+interval '-2 day')::date
+         and (event in (262,266,269,39,36) or (event = 41 and GET_JSON_OBJECT(ext_body,'$.task') = 'Watch Ads' ) or (event = 191 and ext_body::json->>'type' = '1'))
+         -- 全量更新
+         -- and to_timestamp(created_at)::date >= '2025-03-01'
+         -- 增量更新
+         -- and to_timestamp(created_at)::date >= (current_date+interval '-2 day')::date
+         -- 分段更新
+         and to_timestamp(created_at)::date >= '2024-09-14'::date and to_timestamp(created_at)::date <= '2025-01-01'::date
 
     union all
 
@@ -38,12 +95,17 @@ with tmp_user_ad_log as (
         event,
         event_name,
         case when type = '0' then '阶梯广告'
-            when event = '1' or event = '2' then '签到广告'
-            when event = '3' then '剧集解锁广告' end as ad_type
+            when type = '1' or type = '2' then '签到广告'
+            when type = '3' then '剧集解锁广告' end as ad_type
     from app_performance_event_log
     where to_timestamp(created_at)::date >= '2024-10-15'    -- 2024/10/15 有广告数据
         and event in (6,7,8,9) and type in ('0','1','2','3')
-        and to_timestamp(created_at)::date >= (current_date+interval '-2 day')::date
+        -- 全量更新
+        -- and to_timestamp(created_at)::date >= '2025-03-01'
+        -- 增量更新
+        -- and to_timestamp(created_at)::date >= (current_date+interval '-2 day')::date
+        -- 分段更新
+        and to_timestamp(created_at)::date >= '2024-09-14'::date and to_timestamp(created_at)::date <= '2025-01-01'::date
 ),
     country_info as (
         -- 补全 国家名和区域
@@ -117,6 +179,17 @@ group by t5.uid,t5.d_date,t5.country_code,t5.event,t5.event_name,t5.ad_type,
          t5.country_name,t5.area,t5.lang,t5.lang_name,t5.os,
          t5.is_new_user,t5.is_pay_user;
 
-delete from public.dws_traffic_user_ad_log_1d where d_date>= (current_date+interval '-2 day')::date;
+-- 全量更新
+-- truncate table public.dws_traffic_user_ad_log_1d;
+-- insert into public.dws_traffic_user_ad_log_1d
+-- select * from tmp.tmp_dws_traffic_user_ad_log_1d;
+
+-- 增量更新
+-- delete from public.dws_traffic_user_ad_log_1d where d_date>= (current_date+interval '-2 day')::date;
+-- insert into public.dws_traffic_user_ad_log_1d
+-- select * from tmp.tmp_dws_traffic_user_ad_log_1d where d_date>= (current_date+interval '-2 day')::date;
+
+-- 分段更新
+delete from public.dws_traffic_user_ad_log_1d where  d_date>= '2024-09-14'::date and d_date <= '2025-01-01'::date;
 insert into public.dws_traffic_user_ad_log_1d
-select * from tmp.tmp_dws_traffic_user_ad_log_1d where d_date>= (current_date+interval '-2 day')::date;
+select * from tmp.tmp_dws_traffic_user_ad_log_1d where  d_date>= '2024-09-14'::date and d_date <= '2025-01-01'::date;

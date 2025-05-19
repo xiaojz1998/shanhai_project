@@ -26,3 +26,5 @@ where event in (114, 115, 127, 133)
     and to_timestamp(created_at) :: date between '2025-04-18' and current_date
 group by ip) t
 where click_pv>view_pv
+
+

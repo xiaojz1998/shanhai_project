@@ -4,21 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/12 k币报表再次修复前">
-      <change afterPath="$PROJECT_DIR$/k币报表修复-逻辑重写/新sql/k币数据报表_增量2天_d.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k币报表修复-逻辑重写/测试/测试1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/取数/临时取数5-13.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/商业广告报表/测试/检验.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/商业广告报表/第二版修复sql/dws_traffic_user_ad_log_1d_每日用户点击广告_增1天d.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/用户分层相关/dws_user_level_label_hf.sql" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/14">
+      <change afterPath="$PROJECT_DIR$/临时/其他/2025-5-15.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/商业广告报表/第三版/dws_traffic_user_ad_log_1d_每日用户点击广告_增1天d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/商业广告报表/第二版修复sql/商业广告报表_全量_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/新sql/总充值金额-剧维度构成表.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/新sql/总充值金额-多维度构成表bi.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/新sql/总充值金额-用户维度够成表.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/新sql/总充值金额-订单维度构成表.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/新sql/总收入构成表bi.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/测试/总充值金额-多维度构成表_全量_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/收入构成/测试/测试.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/落地页优化/新sql_v2/投放落地页转化漏斗报表.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/落地页优化/测试/添加落地页样式.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/其他/v_dim_ad_campaign_info.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/其他/v_dim_country_area.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/剧报表/剧报表2.0bi.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/剧报表/剧报表_完播率_全量h.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/剧报表/剧报表_指标概览_全量_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/剧报表/剧报表_指标概览日ROI_全量_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/剧报表/剧报表_指标概览端内表现_全量_d.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shanhai.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shanhai.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/k币报表修复-逻辑重写/新sql/k币数据报表_全量初始化.sql" beforeDir="false" afterPath="$PROJECT_DIR$/k币报表修复-逻辑重写/新sql/k币数据报表_全量初始化.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计全量.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/第一版sql/dws层每日用户点击广告统计全量.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/商业广告报表/dws层每日用户点击广告统计增量.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/第一版sql/dws层每日用户点击广告统计增量.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/商业广告报表/quickbi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/第一版sql/quickbi.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/商业广告报表/商业广告报表bi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/第一版sql/商业广告报表bi.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/重要参考sql/功能性sql/用户观看剧集行为.sql" beforeDir="false" afterPath="$PROJECT_DIR$/重要参考sql/功能性sql段落/用户观看剧集行为.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/4-28取数/4-28取数.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/4-28取数/4-28取数.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/4-28取数/dw_core_indicators.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/4-28取数/dw_core_indicators.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/4-28取数/经营报表概览_参考sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/4-28取数/经营报表概览_参考sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/临时取数5-13.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/临时取数5-13.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/历史推送取数.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/历史推送取数.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/测试及其他/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/测试及其他/test.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/取数/测试及其他/新sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/测试及其他/新sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/商业广告报表/测试/检验.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/测试/检验.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/商业广告报表/第二版修复sql/dws_traffic_user_ad_log_1d_每日用户点击广告_增1天d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/商业广告报表/第二版修复sql/dws_traffic_user_ad_log_1d_每日用户点击广告_增1天d.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/abtest流量池_剧维度.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/abtest流量池_剧维度.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/abtest流量池_用户维度.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/abtest流量池_用户维度.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位报表_首页新用户扩量0401_增量两天_h.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位报表_首页新用户扩量0401_增量两天_h.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位报表_首页老用户_增量两天_h.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/落地页优化/新sql/投放落地页转化漏斗报表.sql" beforeDir="false" afterPath="$PROJECT_DIR$/落地页优化/新sql_v1/投放落地页转化漏斗报表.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/落地页优化/新sql/第一版sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/落地页优化/新sql_v1/第一版sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/落地页优化/测试/寻找问题.sql" beforeDir="false" afterPath="$PROJECT_DIR$/落地页优化/测试/寻找问题.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/重要参考sql/重要报表sql/留存率报表/dw_retention_daily_留存报表日周月_df.sql" beforeDir="false" afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/留存率报表/dw_retention_daily_留存报表日周月_df.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/重要参考sql/重要报表sql/留存率报表/dw_retention_detail_tmp01.sql" beforeDir="false" afterPath="$PROJECT_DIR$/重要参考sql/重要报表sql/留存率报表/dw_retention_detail_tmp01.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,11 +99,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\收入构成\测试" />
+      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\临时" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\商业广告报表\第一版sql" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\取数\4-28取数" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\落地页优化\测试" />
-      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\取数\测试及其他" />
-      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\重要参考sql\重要报表sql\经营报表" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -110,7 +139,8 @@
     <MESSAGE value="2025/5/7 完成老用户推荐位报表" />
     <MESSAGE value="2025/5/9 完成老板群推送sql" />
     <MESSAGE value="2025/5/12 k币报表再次修复前" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/5/12 k币报表再次修复前" />
+    <MESSAGE value="2025/5/14" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/5/14" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
