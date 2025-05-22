@@ -13,7 +13,6 @@
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new3.0.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币修复报表_全量初始化_new4.0.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币报表修复_增量2天_d_new1.0.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/k币报表修复/新sql/k币报表修复_增量2天_d_new2.0.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/新sql/建表_latest.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值2.sql" dialect="PostgreSQL" />
