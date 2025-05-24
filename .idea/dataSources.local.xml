@@ -41,5 +41,28 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="MaxCompute" uuid="ddcfebaf-9b69-4400-b513-5c974204aeba">
+      <database-info product="MaxCompute/ODPS" version="0.50.6-public" jdbc-version="4.0" driver-name="odps-jdbc" driver-version="3.9.0-rc4" dbms="UNKNOWN" exact-version="0.50" exact-driver-version="3.9">
+        <identifier-quote-string>`</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>LTAI5tPewKp3cJzUqWfCz5tm</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database">
+              <name qname="" />
+              <name qname="MAXCOMPUTE_PUBLIC_DATA" />
+              <name qname="mcstv" />
+              <node kind="schema" negative="1" />
+            </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
   </component>
 </project>

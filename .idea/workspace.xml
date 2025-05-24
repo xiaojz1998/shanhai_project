@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/23 临时文件">
-      <change afterPath="$PROJECT_DIR$/临时/其他/2025/05/23 报表日期数据丢失.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v3.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试版本占比.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试链接不上vid的数据.sql" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/24 完成拉剧链接报表 已经形成漏斗">
+      <change afterPath="$PROJECT_DIR$/运营月进度报表holo2mc/新sql/ads_rpt_operate_schedule_df.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表holo2mc/测试/测试.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/新sql/tmp.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/tmp.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,8 +53,8 @@
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
-      "postgresql",
-      "java.sql.Driver"
+      "java.sql.Driver",
+      "postgresql"
     ],
     "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
       "PostgreSQL"
@@ -120,7 +115,8 @@
     <MESSAGE value="2025/5/14" />
     <MESSAGE value="2025/5/19 收入报表已经完成" />
     <MESSAGE value="2025/5/23 临时文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/5/23 临时文件" />
+    <MESSAGE value="2025/5/24 完成拉剧链接报表 已经形成漏斗" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/5/24 完成拉剧链接报表 已经形成漏斗" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

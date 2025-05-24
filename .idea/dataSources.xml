@@ -15,5 +15,13 @@
       <jdbc-url>jdbc:postgresql://hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com:80/data_log</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="MaxCompute" uuid="ddcfebaf-9b69-4400-b513-5c974204aeba">
+      <driver-ref>java.sql.Driver</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.aliyun.odps.jdbc.OdpsDriver</jdbc-driver>
+      <jdbc-url>jdbc:odps:https://service.us-west-1.maxcompute.aliyun.com/api?project=mcstv</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

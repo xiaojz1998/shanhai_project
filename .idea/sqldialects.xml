@@ -18,6 +18,7 @@
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数值2.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数据量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/验收/验收测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/参考sql/push_推送效果_全量_d.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/其他/2025-5-15.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/其他/2025/05/23 报表日期数据丢失.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/4-28取数/4-28取数.sql" dialect="PostgreSQL" />
@@ -124,5 +125,7 @@
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/新sql/bi新sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/新sql/dw_operate_schedule_v1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/新sql/dw_operate_schedule_v1_增量.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表holo2mc/新sql/ads_rpt_operate_schedule_df.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表holo2mc/测试/测试.sql" dialect="PostgreSQL" />
   </component>
 </project>
