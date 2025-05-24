@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="data_log@hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com" uuid="4432a523-c869-446e-be20-c9a92cc4b426">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com:80/data_log</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="24a53e3d-0b91-4445-8c14-584ab5372cf9">
+    <data-source source="LOCAL" name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="9c2039a5-548e-45af-8036-38fc424da81f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com:80/cs_data_log</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="data_log@hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com" uuid="1ac7dc39-6453-493d-a3e6-448e990cdc83">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com:80/data_log</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

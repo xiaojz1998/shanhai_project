@@ -4,22 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/19 收入报表已经完成">
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/参考sql/数分和需求方测试sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/测试/测试1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/检测同步任务准确性/检测.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页样式/新sql/落地页样式报表.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页样式/测试/落地页样式测试.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/落地页样式/测试/验证.sql" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/23 临时文件">
+      <change afterPath="$PROJECT_DIR$/临时/其他/2025/05/23 报表日期数据丢失.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v3.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试版本占比.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试链接不上vid的数据.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版前sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/新sql/tmp.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/tmp.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/收入构成/测试/测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/收入构成/测试/测试.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/落地页优化/临时取数/test1.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +26,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="fileheader" />
+        <option value="my-new-sql-file" />
       </list>
     </option>
   </component>
@@ -47,34 +44,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoj/Desktop/cadeAndData/导出表/临时取数&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/xiaoj/Desktop/cadeAndData/导出表/临时取数",
+    "settings.editor.selected.configurable": "fileTemplates",
+    "settings.editor.splitter.proportion": "0.3058104"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;java.sql.Driver&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql",
+      "java.sql.Driver"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;PostgreSQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "PostgreSQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\code\sql\shanhai_project\投放拉剧链接报表\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\投放拉剧链接报表\参考sql" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\落地页样式\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\收入构成\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\临时" />
-      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\商业广告报表\第一版sql" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -121,7 +119,8 @@
     <MESSAGE value="2025/5/12 k币报表再次修复前" />
     <MESSAGE value="2025/5/14" />
     <MESSAGE value="2025/5/19 收入报表已经完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/5/19 收入报表已经完成" />
+    <MESSAGE value="2025/5/23 临时文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/5/23 临时文件" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

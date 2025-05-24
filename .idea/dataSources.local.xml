@@ -1,41 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="DB-251.25410.123">
-    <data-source name="data_log@hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com" uuid="4432a523-c869-446e-be20-c9a92cc4b426">
-      <database-info product="PostgreSQL" version="11.3" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="11.3" exact-driver-version="42.7">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>LTAI5t6QjM7ecDw5fFq3272V</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node negative="1">
-            <node kind="database" qname="@">
-              <node kind="schema" qname="@" />
-            </node>
-            <node kind="database" qname="data_admin" />
-            <node kind="database" qname="data_log">
-              <node kind="schema">
-                <name qname="dw" />
-                <name qname="public" />
-                <name qname="tmp" />
-              </node>
-            </node>
-            <node kind="database" qname="data_test">
-              <node kind="schema">
-                <name qname="dw" />
-                <name qname="public" />
-              </node>
-            </node>
-            <node kind="database" qname="postgres">
-              <node kind="schema" qname="public" />
-            </node>
-          </node>
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="24a53e3d-0b91-4445-8c14-584ab5372cf9">
+    <data-source name="cs_data_log@hgprecn-cn-ot93u9m5t001-us-west-1.hologres.aliyuncs.com" uuid="9c2039a5-548e-45af-8036-38fc424da81f">
       <database-info product="PostgreSQL" version="11.3" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="11.3" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
@@ -52,9 +18,25 @@
               <node kind="schema">
                 <name qname="analysis" />
                 <name qname="dw" />
-                <name qname="tmp" />
+                <name qname="oversea-api" />
+                <name qname="public" />
               </node>
             </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="data_log@hgprecn-cn-8ex40s6we002-cn-shanghai.hologres.aliyuncs.com" uuid="1ac7dc39-6453-493d-a3e6-448e990cdc83">
+      <database-info product="PostgreSQL" version="11.3" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="11.3" exact-driver-version="42.7">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>LTAI5t6QjM7ecDw5fFq3272V</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="@">
+            <node kind="schema" qname="@" />
           </node>
         </introspection-scope>
       </schema-mapping>

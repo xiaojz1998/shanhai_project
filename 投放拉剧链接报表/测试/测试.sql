@@ -5,8 +5,13 @@
 -- description:
 ------------------------------------------
 
--- 测试 剧集表
-select count(distinct id) from "oversea-api_osd_videos"
+-- 测试 剧集表 结果：唯一
+select count(distinct id) from "oversea-api_osd_videos";
+
+-- 测试 用户表 vid 情况 vid 肯定存在
+select count(*) from dwd_user_info where vid is null or vid = '0';
+
+-- 测试新的
 
 with tmp_new_camp_user as (
     select
@@ -43,4 +48,10 @@ with tmp_new_camp_user as (
         , count(distinct device_id) as "新增推广用户数"
     from tmp_new_camp_user
     group by d_date, country_name, area, country_grade, lang_name, vid, campaign_id, campaign_name, ad_channel, type, ad_source_type
-) select sum("新增推广用户数") from tmp_new_camp_user_uv
+)select count(distinct device_id) from tmp_new_camp_user where ad_source_type =1  -- 27669
+
+-- 两个不同是因为 device_id 不唯一，同一个设备有不同uid 且分组不同
+-- select count(distinct device_id) from tmp_new_camp_user where ad_source_type =1 27669
+--select sum("新增推广用户数") from tmp_new_camp_user_uv where ad_source_type = 1 27715
+
+

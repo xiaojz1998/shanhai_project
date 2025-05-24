@@ -19,6 +19,7 @@
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/k币test数据量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/验收/验收测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/其他/2025-5-15.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/临时/其他/2025/05/23 报表日期数据丢失.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/4-28取数/4-28取数.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/临时取数5-13.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/历史推送取数.sql" dialect="PostgreSQL" />
@@ -46,7 +47,11 @@
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/参考sql/数分和需求方测试sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版前sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v3.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/tmp.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试版本占比.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试链接不上vid的数据.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/测试/测试1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/收入构成/新sql/总充值金额-剧维度构成表.sql" dialect="PostgreSQL" />

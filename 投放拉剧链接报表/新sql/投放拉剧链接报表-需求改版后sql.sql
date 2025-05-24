@@ -35,8 +35,8 @@ create table if not exists public.ads_campaign_link_statistics (
 ------------------------------------------
 -- 更新
 ------------------------------------------
--- drop table if exists tmp.ads_campaign_link_statistics_tmp;
--- create table tmp.ads_campaign_link_statistics_tmp as
+drop table if exists tmp.ads_campaign_link_statistics_tmp;
+create table tmp.ads_campaign_link_statistics_tmp as
 with tmp_new_camp_user as (
     select
         d_date::date              -- 注册日期
@@ -50,7 +50,7 @@ with tmp_new_camp_user as (
         , campaign_name     -- 广告名
         , vid               -- 剧id
         , case when lower((regexp_split_to_array(campaign_name, '_'))[3]::text) like '%w2a%' then 'W2A' else '直投' end as type-- 投放链路
-        , ad_source_type    -- 还差一个归因通道
+        , ad_source_type    -- 归因通道
     from public.dwd_user_info a
     left join v_dim_country_area b on a.country_code = b.country_code       -- 获得国家级别
     where not (media_source in ('organic','unknown','') and (campaign_id is null or campaign_id = '' or campaign_id='0'))-- 判断推广流用户
@@ -125,10 +125,9 @@ with tmp_new_camp_user as (
     union all
     select
         d_date,country_name,area,country_grade,lang_name,vid,campaign_id,campaign_name,ad_channel,type,ad_source_type
-    from tmp_event_log_uv ) t left join "oversea-api_osd_videos" t0 on t.vid = t0.id::text
+    from tmp_event_log_uv ) t left join "oversea-api_osd_videos" t0 on t.vid = t0.id::text          -- 补充剧名
     group by d_date,country_name,area,country_grade,lang_name,vid,name,campaign_id,campaign_name,ad_channel,t.type,ad_source_type
 )
-
 select
     -- 分组维度
     t.d_date as 日期
@@ -176,6 +175,7 @@ left join tmp_event_log_uv t1
            and t.ad_source_type = t1.ad_source_type ;
 
 -- 更新
--- delete from public.ads_campaign_link_statistics where 日期::date = '2025-05-20'::date;
--- insert into public.ads_campaign_link_statistics
--- select * from tmp.ads_campaign_link_statistics_tmp;
+delete from public.ads_campaign_link_statistics where 日期::date = '2025-05-20'::date ;
+insert into public.ads_campaign_link_statistics
+select * from tmp.ads_campaign_link_statistics_tmp;
+
