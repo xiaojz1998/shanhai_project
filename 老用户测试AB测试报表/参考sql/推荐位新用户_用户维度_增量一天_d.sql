@@ -144,7 +144,7 @@ ranked_recommendations AS (
             PARTITION BY b.tab_id
             ORDER BY
                 CASE WHEN a.sort=0 THEN 1 ELSE 0 END, -- NULLs come last
-                a.sort ASC -- Then sort by actual sort value
+                a.sort ASC                            -- Then sort by actual sort value
         ) AS rank
     FROM "oversea-api_osd_recommend" a
     INNER JOIN recommends b ON a.id = b.recommend_id

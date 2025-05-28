@@ -5,11 +5,15 @@
 -- Description:  
 ---------------------------------------------
 set timezone ='UTC-0';
+---------------------------------------------
+-- 全量更新
+---------------------------------------------
 truncate table analysis.dw_push_view_tmp01;
 insert into analysis.dw_push_view_tmp01
+-- 推送信息
 with tmp_push_info as(
 	select
-	push_id
+	 push_id
 	,push_time
 	,string_agg(layered_name,';' order by layered_name) as layered_name
 	,array_agg(distinct lang_name) as lang_name
@@ -26,34 +30,29 @@ with tmp_push_info as(
 			select
 			id::text as push_id
 			,to_timestamp(pushed_at) at time zone 'UTC-8' as push_time
-			,user_layered_configs
+			,user_layered_configs                       -- user_layered_configs
 			,json_array_elements((REGEXP_MATCH(replace(user_layered_configs, E'\\', ''),'\[.*?\]'))[1]::json) ->> 'id' as layered_id
 			,json_array_elements((REGEXP_MATCH(replace(user_layered_configs, E'\\', ''),'\[.*?\]'))[1]::json) ->> 'name' as layered_name
-			,title as push_title
-			,"content" as push_content
-			,jump_type
-			,push_retry_times as push_hz
-			,sent_count as sent_unt
-			,delivered_count as push_unt
-			,click_count as click_unt
-			from public."oversea-api_osd_pushed" x
-			-- where 1=1
-				-- and (id=3640  or id=3049 or id=3923)
-				-- and user_layered_configs like '%首页推荐-泰语%'
+			,title as push_title                        -- 推送标题
+			,"content" as push_content                  -- 推送内容
+			,jump_type                                  -- 类型
+			,push_retry_times as push_hz                -- 推送次数
+			,sent_count as sent_unt                     -- 命中用户数
+			,delivered_count as push_unt                -- 送达人数
+			,click_count as click_unt                   -- 点击人数
+			from public."oversea-api_osd_pushed" x      -- push推送表
 		)t1
 		left join(
-			select t1.*,t2."name" as lang_name
+			select t1.*,t2."name" as lang_name      -- 用户分层配置表 id 名称 语言码 和 语言
 			from(
 			select id ,"name"
 			,lang_config::json ->> 0 as lang_code
-			from public."oversea-api_osd_user_layered_configs"
+			from public."oversea-api_osd_user_layered_configs"  -- 用户分层配置表
 			where 1=1
 			and lang_config <>'[]'
-			-- and "name" like '%英语PUSH-全量用户%'
 			)t1
-			left join public."oversea-api_osd_lang" t2 on t1.lang_code=t2.lang_code
+			left join public."oversea-api_osd_lang" t2 on t1.lang_code=t2.lang_code     -- 补充语言
 		)t2 on t1.layered_id=t2.id::text
-
 	)a
 	group by
 	push_id
@@ -68,7 +67,7 @@ with tmp_push_info as(
 )
 ,tmp_push_log as(
 	select
-		push_id
+	push_id
 	,d_date
 	,sum(popup_pv) as popup_pv
 	,count(distinct case when popup_pv>0 then uid else null end) popup_uv
@@ -93,7 +92,6 @@ with tmp_push_info as(
 			-- 58 进入充值弹窗就上报
 		and created_date >20241101
 		group by
-		-- created_date
 		to_timestamp(created_at)::date
 		,push_id
 		,uid
@@ -144,6 +142,7 @@ with tmp_push_info as(
 	,to_timestamp(created_at)::date
 
 )
+-- 基础维度主表
 ,tmp_primary as(
 	select distinct push_id,d_date from(
 		select distinct push_id,d_date from tmp_push_log
@@ -185,9 +184,9 @@ where 1=1
 and t0.push_id is not null
 ;
 
-
-	truncate table public.dw_push_view  ;
-	insert into public.dw_push_view  select * from analysis.dw_push_view_tmp01;
+-- 全量更新
+truncate table public.dw_push_view  ;
+insert into public.dw_push_view  select * from analysis.dw_push_view_tmp01;
 
 
 

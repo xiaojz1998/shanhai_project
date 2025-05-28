@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/24 完成拉剧链接报表 已经形成漏斗">
-      <change afterPath="$PROJECT_DIR$/运营月进度报表holo2mc/新sql/ads_rpt_operate_schedule_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月进度报表holo2mc/测试/测试.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/24 做push报表修改任务">
+      <change afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/推荐位_用户维度_增量一天.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/测试/测试.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/测试为什么bi中vid为null.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/验收/验收sql整理.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/新sql/推荐位报表_播放页完播弹窗_增量_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/参考sql/推荐位报表_老用户_增量两天_h.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/参考sql/推荐位新用户_用户维度_增量一天_d_注释版.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/新sql/推荐位报表_老用户扩量_增量两天_h.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/push报表增加个性化推送的统计/参考sql/push_推送效果_全量_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/参考sql/push_推送效果_全量_d.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/push_推送效果_全量_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/push_推送效果_全量_d.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位新用户_用户维度_增量一天_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/老用户测试AB测试报表/新sql/推荐位新用户_用户维度_增量一天_d.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,28 +47,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/xiaoj/Desktop/cadeAndData/导出表/临时取数",
-    "settings.editor.selected.configurable": "fileTemplates",
-    "settings.editor.splitter.proportion": "0.3058104"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoj/Desktop/cadeAndData/导出表/临时取数&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.3058104&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "java.sql.Driver",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;java.sql.Driver&quot;,
+      &quot;postgresql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "PostgreSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;PostgreSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\code\sql\shanhai_project\投放拉剧链接报表\测试" />
@@ -116,7 +124,8 @@
     <MESSAGE value="2025/5/19 收入报表已经完成" />
     <MESSAGE value="2025/5/23 临时文件" />
     <MESSAGE value="2025/5/24 完成拉剧链接报表 已经形成漏斗" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/5/24 完成拉剧链接报表 已经形成漏斗" />
+    <MESSAGE value="2025/5/24 做push报表修改任务" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/5/24 做push报表修改任务" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
