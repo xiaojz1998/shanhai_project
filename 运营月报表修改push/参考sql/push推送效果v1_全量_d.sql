@@ -1,6 +1,6 @@
 ---------------------------------------------
--- File: push_推送效果_全量_d.sql
--- Time: 2025/5/24 18:26
+-- File: push推送效果v1_全量_d.sql
+-- Time: 2025/6/10 10:58
 -- User: xiaoj
 -- Description:  
 ---------------------------------------------
@@ -224,7 +224,6 @@ with tmp_user_layered_info as (
 )
 -- push 基础信息
 -- push id 相同补齐基础维度信息
--- 对push_id 补全push_time(只对手动推送补全)，分层名，语言，标题和内容
 , tmp_push_basic_info as (
     select push_id, push_time, layered_name, lang_name, push_title, push_content from tmp_manual_push_info
     union all
@@ -233,7 +232,7 @@ with tmp_user_layered_info as (
     select push_id, '', layered_name, lang_name, push_title, push_content from tmp_auto_push_info group by push_id, layered_name, lang_name, push_title, push_content
 )
 -- push 推送效果
--- pushid 和 d_date 相同的补齐推送效果(sent、push、click)
+-- pushid 和 d_date 相同的补齐推送效果
 , tmp_push_effect as (
     select push_id, push_time::timestamp::date as d_date,  sent_unt, push_unt, click_unt from tmp_manual_push_info
     union all

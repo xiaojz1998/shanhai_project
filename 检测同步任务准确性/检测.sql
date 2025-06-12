@@ -34,3 +34,13 @@ select count(*) from "oversea-api_osd_home_page";
 
 -- ods_oversea_api_osd_recommend_hf
 select count(*) from "oversea-api_osd_recommend";
+
+
+-- push信息校验
+select count(*) from "oversea-api_osd_personalized_push_configs"
+
+select count(*) from "oversea-api_osd_personalize_push_statistic"
+
+select count(*) from "oversea-api_osd_auto_push_logs"
+
+select count(*) from "oversea-api_osd_auto_pushes"

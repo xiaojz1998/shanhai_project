@@ -20,6 +20,7 @@
                 <name qname="dw" />
                 <name qname="oversea-api" />
                 <name qname="public" />
+                <name qname="tmp" />
               </node>
             </node>
           </node>

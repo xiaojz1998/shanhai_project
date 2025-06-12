@@ -1,11 +1,9 @@
 ---------------------------------------------
--- File: 验收sql整理.sql
--- Time: 2025/5/27 11:00
+-- File: 对比v3v4.sql
+-- Time: 2025/6/3 14:47
 -- User: xiaoj
 -- Description:  
 ---------------------------------------------
-
--- 找到新注册推广流用户
 with tmp_new_camp_user as (
     select
         d_date::date        -- 注册日期
@@ -22,10 +20,9 @@ with tmp_new_camp_user as (
         , ad_source_type    -- 归因通道 统一用用户表的，因为埋点表的不准确
     from public.dwd_user_info a
     left join v_dim_country_area b on a.country_code = b.country_code       -- 获得国家级别
-    where not ((media_source in ('unkown','organic','') or media_source  is null) and (campaign_id is null or  campaign_id='' or campaign_id='0'))-- 判断推广流用户
-         and d_date::date between '2025-04-01'::date  and '2025-05-20'::date                          -- 限制时间
+    where user_source = '推广流'-- 判断推广流用户
+         and d_date::date >= '2025-05-01' and d_date::date <= '2025-06-02'                             -- 限制时间
 )
--- 埋点相关信息
 , tmp_event_log as (
     select
         to_timestamp(created_at):: date as d_date       -- 日期
@@ -42,15 +39,19 @@ with tmp_new_camp_user as (
     from "app_performance_event_log"
     where (event = 22 or event = 23 or event = 29 or event = 30)                                -- 限制event
          -- and ad_source_type != 2                                                                -- 过滤掉自归因的数据
-         and to_timestamp(created_at):: date between '2025-04-01'::date  and '2025-05-20'::date                                  -- 限制时间
+         and to_timestamp(created_at):: date >= '2025-05-01' and to_timestamp(created_at):: date <= '2025-06-02'                               -- 限制时间
 )
 select
-    日期
-    , sum(新增推广用户数) as 新增推广用户数
-    , sum(深度链获取新增用户数) as 深度链获取新增用户数
-    , sum(深度链解析新增用户数) as 深度链解析新增用户数
-    , sum(剧集信息获取新增用户数) as 剧集信息获取新增用户数
-    , sum(视频加载新增用户数) as 视频加载新增用户数
+    t.日期
+    , sum("新增推广用户数")
+    , sum("深度链获取新增用户数")
+    , sum("深度链解析新增用户数")
+    , sum("剧集信息获取新增用户数")
+    , sum("视频加载新增用户数")
+    , 1.0*sum("深度链获取新增用户数")/sum("新增推广用户数")
+    , 1.0*sum("深度链解析新增用户数")/sum("深度链获取新增用户数")
+    , 1.0*sum("剧集信息获取新增用户数")/sum("深度链解析新增用户数")
+    , 1.0*sum("视频加载新增用户数")/sum("剧集信息获取新增用户数")
 from (select
     t.d_date as 日期
     , country_name as 国家
@@ -84,5 +85,6 @@ group by t.d_date
         , campaign_name
         , ad_channel
         , t.type
-        , t.ad_source_type) t
-group by 日期
+        , t.ad_source_type)t
+where 投放链路 = 'W2A' and 归因通道='1'
+group by t.日期

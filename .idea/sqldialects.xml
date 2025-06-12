@@ -20,10 +20,18 @@
     <file url="file://$PROJECT_DIR$/k币报表修复/测试/验收/验收测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/参考sql/push_推送效果_全量_d.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/push_推送效果_全量_d.sql" dialect="PostgreSQL" />
-    <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/推荐位_用户维度_增量一天.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/测试/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/测试/自动化push.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/push报表增加个性化推送的统计/测试/验收.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/push推送效果holo2mc/测试/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/q1规划核心指标报表增加指标/参考sql/运营月报表bi.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/q1规划核心指标报表增加指标/新sql/qi规划biv1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/q1规划核心指标报表增加指标/新sql/规划核心指标看板v1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/q1规划核心指标报表增加指标/老sql/bi.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/q1规划核心指标报表增加指标/老sql/规划核心指标看板.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/其他/2025-5-15.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/其他/2025/05/23 报表日期数据丢失.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/临时/其他/测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/4-28取数/4-28取数.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/临时取数5-13.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/临时/取数/历史推送取数.sql" dialect="PostgreSQL" />
@@ -33,6 +41,7 @@
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/分语言剧上架汇总数据/分语言剧上架汇总数据测试1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/同步任务/20250417.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/同步任务/校验.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/测试/test.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/测试/检验.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/商业广告报表/第一版sql/dws层每日用户点击广告统计全量.sql" dialect="PostgreSQL" />
@@ -52,12 +61,21 @@
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版前sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表-需求改版后sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v3.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v4.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v5.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/tmp.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/取出获取不到的数据.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/取数.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/对比v3v4.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/查看关联不上vid的样本.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试为什么bi中vid为null.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试版本占比.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/测试链接不上vid的数据.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/测试/解析不出来vid的样本.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/投放拉剧链接报表/验收/验收sql整理.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/参考sql/推荐位新用户_用户维度_增量一天_d.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/新sql/tmp_端内.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/新sql/推荐位报表_播放页完播弹窗_增量_d.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/测试/测试1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/收入构成/新sql/总充值金额-剧维度构成表.sql" dialect="PostgreSQL" />
@@ -67,9 +85,12 @@
     <file url="file://$PROJECT_DIR$/收入构成/新sql/总收入构成表bi.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/收入构成/测试/总充值金额-多维度构成表_全量_d.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/收入构成/测试/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/收入构成/验收/验收sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/新剧预约报表/新剧预约报表bi报表.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/新剧预约报表/新剧预约报表底表.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/新剧预约报表/验收.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/本土剧录入/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/本土首发测试剧目/参考sql/本土首发测试剧目.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/检测同步任务准确性/检测.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/原sql/经营报表概览.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/正确的续费数据/新sql/经营报表-流水表-对比.sql" dialect="PostgreSQL" />
@@ -83,6 +104,16 @@
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-insert.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-test1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/用户分层需求/用户分层需求第一版-下线/用户分层需求-建表tmp.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/用户留存报表优化/新sql/dw_retention_daily_留存报表日周月_df.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/用户留存报表优化/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/新sql/dw_retention_daily_留存报表日周月_df.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/新sql/dw_retention_daily_留存报表日周月_df_v1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/新sql/dw_retention_detail_tmp01_留存明细数据_df.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/修改.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/验收问题.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/验证.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存报表月留存增加月充值人数/老sql/dw_retention_daily_留存报表日周月_df.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/留存数据和第三方对比/验证sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/ads_operate_roi_af.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/老板群飞书推送-不分语言.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/参考sql/老板群飞书推送-不分语言v1.sql" dialect="PostgreSQL" />
@@ -92,6 +123,9 @@
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/测试/分语言提取新字段.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/测试/验证.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言/测试/验证1.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言修改af口径/新sql/老板群飞书推送-分语言.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言修改af口径/新sql/老板群飞书推送-整体.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/老板群飞书推送-分语言修改af口径/测试/测试.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老用户AB测试报表扩量/参考sql/推荐位报表_老用户_增量两天_h.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老用户AB测试报表扩量/参考sql/推荐位新用户_用户维度_增量一天_d_注释版.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/老用户AB测试报表扩量/新sql/推荐位报表_老用户扩量_增量两天_h.sql" dialect="PostgreSQL" />
@@ -123,6 +157,11 @@
     <file url="file://$PROJECT_DIR$/订单失败率监控/新sql_v1/分订单状态统计_全量.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/订单失败率监控/新sql_v1/分订单状态统计_增量2天_h.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/订单失败率监控/验收/test.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月报表修改push/新sql/dw_operate_schedule_运营月进度_全量h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月报表修改push/新sql/dw_operate_schedule_运营月进度_增3天_h.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月报表修改push/新sql/规划核心指标看板.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月报表修改push/测试.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月报表修改push/老sql/dw_operate_schedule_运营月进度_增3天_h.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/原sql和参考sql/bi原sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/原sql和参考sql/dw_operate_roi_v2.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/原sql和参考sql/dw_operate_view.sql" dialect="PostgreSQL" />
@@ -133,6 +172,7 @@
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/新sql/bi新sql.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/新sql/dw_operate_schedule_v1.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表/3月/新sql/dw_operate_schedule_v1_增量.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/运营月进度报表/录入目标/2025-6.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表holo2mc/新sql/ads_rpt_operate_schedule_df.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/运营月进度报表holo2mc/测试/测试.sql" dialect="PostgreSQL" />
   </component>
