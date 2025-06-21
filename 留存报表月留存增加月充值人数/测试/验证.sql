@@ -169,3 +169,6 @@ where active_month = '2025-04'
 
 
 
+select
+    push_time
+from public."oversea-api_osd_auto_push_logs"

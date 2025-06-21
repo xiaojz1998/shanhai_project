@@ -173,6 +173,8 @@ left join tmp_push_log t2 on t.push_id = t2.push_id and t2.d_date = t.d_date
 left join order_view t3 on t.push_id = t3.push_id and t3.d_date = t.d_date
 where t.push_id like '%person%'
 
-
+select
+    *
+from public."oversea-api_osd_auto_pushes"
 
 

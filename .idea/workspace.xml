@@ -4,61 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/5/28 早上提交一次">
-      <change afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/测试/曝光sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/测试/自动化push.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/测试/验收.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/q1规划核心指标报表增加指标/参考sql/运营月报表bi.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/q1规划核心指标报表增加指标/新sql/qi规划biv1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/q1规划核心指标报表增加指标/新sql/规划核心指标看板v1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/q1规划核心指标报表增加指标/老sql/bi.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/q1规划核心指标报表增加指标/老sql/规划核心指标看板.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时/其他/测试.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/同步任务/校验.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v4.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/新sql/投放拉剧链接报表v5.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/取出获取不到的数据.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/取数.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/对比v3v4.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/查看关联不上vid的样本.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/测试/解析不出来vid的样本.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/新sql/tmp_端内.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/收入构成/验收/验收sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/本土剧录入/test.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/本土首发测试剧目/参考sql/本土首发测试剧目.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/用户留存报表优化/新sql/dw_retention_daily_留存报表日周月_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/用户留存报表优化/测试.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/新sql/dw_retention_daily_留存报表日周月_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/新sql/dw_retention_daily_留存报表日周月_df_v1.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/新sql/dw_retention_detail_tmp01_留存明细数据_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/修改.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/验收问题.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/验证.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/老sql/dw_retention_daily_留存报表日周月_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/老sql/dw_retention_detail_tmp01_留存明细数据_df.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/留存数据和第三方对比/验证sql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老板群飞书推送-分语言修改af口径/新sql/老板群飞书推送-分语言.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老板群飞书推送-分语言修改af口径/新sql/老板群飞书推送-整体.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/老板群飞书推送-分语言修改af口径/测试/测试.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/参考sql/push推送效果v1_全量_d.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/新sql/dw_operate_schedule_运营月进度_全量h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/新sql/dw_operate_schedule_运营月进度_增3天_h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/新sql/规划核心指标看板.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/测试.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/老sql/dw_operate_schedule_运营月进度_全量h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月报表修改push/老sql/dw_operate_schedule_运营月进度_增3天_h.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/运营月进度报表/录入目标/2025-6.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="6bc8996c-8ffb-45c0-b1d8-f9aabad2f0e2" name="Changes" comment="2025/6/12 提交修改">
+      <change afterPath="$PROJECT_DIR$/push报表增加自动推送文案等信息/新sql/push推送效果v1_全量_d.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/push报表增加自动推送文案等信息/测试/测试.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/push报表增加自动推送文案等信息/测试/测试1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/临时/其他/2025-06-17报表问题回复.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/临时/取数/2025-06-18取数.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/投放拉剧链接报表/取数/6/14取数.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/测试/测试端内.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老板群飞书推送-分语言修改口径和首页看板对齐/新sql/老板群飞书推送-分语言.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老板群飞书推送-分语言修改口径和首页看板对齐/新sql/老板群飞书推送-整体.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老板群飞书推送-分语言修改口径和首页看板对齐/测试/测试.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/新sql/推荐位报表_老用户扩量_增量两天_h_v1.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/测试/新的推荐位判断方式.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/测试/验收端内.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/老用户AB测试报表扩量/测试/验收首页.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/运营月进度报表/6月/新sql/修改dau.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/参考sql/bi新sql-7期新.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/参考sql/分语言投放消耗_修复葡萄牙语.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/参考sql/分语言投放组数据_周推送_加组别.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/参考sql/分语言投放组数据_月推送_加组别.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/参考sql/飞书机器人-按剧消耗排序2.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/参考sql/飞书机器人6期2503010_零时区修正.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/新sql/分语言收入转化和留存数据.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人分语言推送：增加俄语推送/新sql/飞书机器人-按剧消耗排序.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/飞书机器人第八期语言合并版修改/参考sql/飞书机器人第八期20250419语言合并版.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/push_推送效果_全量_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/push_推送效果_全量_d.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/push报表增加个性化推送的统计/新sql/推荐位_用户维度_增量一天.sql" beforeDir="false" afterPath="$PROJECT_DIR$/push推送效果holo2mc/测试/测试.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/push报表增加个性化推送的统计/测试/测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/push报表增加个性化推送的统计/测试/测试.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/投放拉剧链接报表/验收/验收sql整理.sql" beforeDir="false" afterPath="$PROJECT_DIR$/投放拉剧链接报表/验收/验收sql整理.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/新sql/推荐位报表_播放页完播弹窗_增量_d.sql" beforeDir="false" afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/新sql/推荐位报表_播放页完播弹窗_增量_d.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/测试/测试1.sql" beforeDir="false" afterPath="$PROJECT_DIR$/播放页完播弹窗新算法AB测试报表/测试/测试1.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/检测同步任务准确性/检测.sql" beforeDir="false" afterPath="$PROJECT_DIR$/检测同步任务准确性/检测.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/运营月进度报表holo2mc/测试/测试.sql" beforeDir="false" afterPath="$PROJECT_DIR$/运营月进度报表holo2mc/测试/测试.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/临时/其他/2025/05/23 报表日期数据丢失.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/其他/2025-05-23.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/临时/取数/4-28取数/4-28取数.sql" beforeDir="false" afterPath="$PROJECT_DIR$/临时/取数/4-28取数/4-28取数.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/本土剧录入/test.sql" beforeDir="false" afterPath="$PROJECT_DIR$/本土剧录入/test.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/修改.sql" beforeDir="false" afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/修改.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/验证.sql" beforeDir="false" afterPath="$PROJECT_DIR$/留存报表月留存增加月充值人数/测试/验证.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/留存数据和第三方对比/验证sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/留存数据和第三方对比/验证sql.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,35 +66,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/xiaoj/Desktop/cadeAndData/导出表/临时取数&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;fileTemplates&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.3058104&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/xiaoj/Desktop/cadeAndData/导出表/临时取数",
+    "service.view.auto.scroll.to.source": "true",
+    "settings.editor.selected.configurable": "fileTemplates",
+    "settings.editor.splitter.proportion": "0.3058104"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;java.sql.Driver&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "java.sql.Driver",
+      "postgresql"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;PostgreSQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "PostgreSQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\code\sql\shanhai_project\临时\其他" />
       <recent name="D:\code\sql\shanhai_project\投放拉剧链接报表\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\投放拉剧链接报表\参考sql" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\落地页样式\测试" />
       <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\收入构成\测试" />
-      <recent name="C:\Users\xiaoj\DataGripProjects\shanhai\临时" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -166,7 +146,8 @@
     <MESSAGE value="2025/5/24 完成拉剧链接报表 已经形成漏斗" />
     <MESSAGE value="2025/5/24 做push报表修改任务" />
     <MESSAGE value="2025/5/28 早上提交一次" />
-    <option name="LAST_COMMIT_MESSAGE" value="2025/5/28 早上提交一次" />
+    <MESSAGE value="2025/6/12 提交修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="2025/6/12 提交修改" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

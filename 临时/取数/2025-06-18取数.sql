@@ -1,9 +1,10 @@
-------------------------------------------
--- file: 4-28取数.sql
--- author: xiaoj
--- time: 2025/4/28 16:36
--- description:
-------------------------------------------
+---------------------------------------------
+-- File: 2025-06-18取数.sql
+-- Time: 2025/6/18 10:24
+-- User: xiaoj
+-- Description:  
+---------------------------------------------
+
 ------------------------------------------
 --  参考表及分析
 ------------------------------------------
@@ -20,8 +21,12 @@
 ------------------------------------------
 --  目标
 ------------------------------------------
--- 取三月四月数据
+-- 取六月数据
 -- 条件：剔除播放时长小于3秒的当日注册新用户后计算以下各个指标数据
+
+
+
+
 
 set timezone ='UTC-0';
 -- 需要排除的数据
@@ -103,7 +108,7 @@ tmp_subscription as(
 -- 取时间
 tmp_primary as(
     select v_date::int ,d_date::date as d_date
-    from analysis.dim_day where d_date between '2025-06-01' and '2025-06-16'
+    from analysis.dim_day where d_date between '2025-06-01' and '2025-06-17'
 ),
 -- 未排除
 user_pay_status AS (
@@ -275,8 +280,8 @@ tmp_daily_watch_summary as (
     AND a.vid = b.vid
     AND TO_TIMESTAMP(a.created_at)::date >= '2025-03-01'
     GROUP BY TO_TIMESTAMP(a.created_at)::date
-)
-, tmp_unacitive_users as (
+),
+tmp_unacitive_users as (
     select
         v_date,
         d_date,
@@ -292,7 +297,6 @@ tmp_daily_watch_summary as (
         group by t.v_date, t.d_date, t.uid
     ) t
     group by t.v_date, t.d_date
-
 )
 select
     t0.d_date as "日期",
@@ -334,24 +338,93 @@ left join tmp_watch tw on t0.d_date = tw.d_date
 left join tmp_task tt on t0.d_date = tt.d_date
 left join tmp_daily_watch_summary tds on t0.d_date = tds.d_date
 where t0.d_date >= '2025-06-01'::date  -- and t0.d_date <= '2025-04-30'::date
-group by t0.d_date
+group by t0.d_date;
 
 
+-- select count(*) from public.dwd_user_active where d_date = '2025-06-10';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+with excluded_data as (
+    select
+        t1.v_date,
+        t1.d_date :: date,
+        t1.uid ::bigint,
+        t1.user_source,
+        t1.ad_channel,
+        t1.lang_name,
+        t1.country_name
+    from dwd_user_info t1
+    left join  (
+    -- 3月以后 每个用户每天观看时间
+        SELECT
+            to_timestamp(created_at)::date as d_date,
+            uid,
+            sum(case when event=2 then watch_time else 0 end) as watch_duration_sec
+        FROM public.app_user_track_log a
+        WHERE a.event = 2 AND a.vid > 0 AND a.eid > 0 AND to_timestamp(a.created_at)::date >= '2025-06-01'
+        GROUP BY to_timestamp(a.created_at):: date,a.uid
+    ) t2
+        on t1.d_date::date = t2.d_date::date and t1.uid::bigint = t2.uid::bigint
+    where t1.d_date>= '2025-06-01' and( watch_duration_sec is null or watch_duration_sec < 3)
+    group by t1.d_date,t1.uid
+),
+new_reg_users as (
+	select
+	     t.v_date as created_date
+	    , t.d_date::date as d_date
+	    , t.uid::int8 as uid
+	    , t.country_name
+	    , t.lang_name
+	    , t.user_source
+	    , t.ad_channel
+	from public.dwd_user_info t
+	left join excluded_data ed on t.uid::bigint = ed.uid and t.d_date::date = ed.d_date
+	where ed.uid is null -- 剔除这部分新用户
+),
+tmp_excluded_users as (
+    select
+        d_date,
+        user_source,
+        ad_channel,
+        lang_name,
+        country_name,
+        count(distinct uid) as excluded_uv
+    from excluded_data
+    group by d_date,user_source,ad_channel,lang_name,country_name
+),
+tmp_unacitive_users as (
+    select
+        v_date,
+        d_date,
+        country_name,
+        lang_name,
+        ad_channel,
+        user_source,
+        count(distinct case when stay_active is null then uid else null end) as stay_unactive_uv
+    from(
+        select
+            t.v_date,
+            t.d_date,
+            t.uid,
+            t.country_name,
+            t.lang_name,
+            t.ad_channel,
+            t.user_source,
+            max(t0.uid) as stay_active
+        from excluded_data t
+        left join public.dwd_user_active t0 on t.d_date + 1 <= t0.d_date  and t0.d_date <= t.d_date + 7 and t0.uid = t.uid
+        group by t.v_date, t.d_date, t.uid, t.country_name,t.lang_name,t.ad_channel,t.user_source
+    ) t
+    group by t.v_date, t.d_date, country_name,lang_name,ad_channel,user_source
+)
+select
+    t.d_date as 日期,
+    t.country_name as 国家,
+    t.lang_name as 语言,
+    t.ad_channel as 渠道,
+    t.user_source as 是否是推广流,
+    excluded_uv as 排除用户数,
+    stay_unactive_uv as 后七天不活跃用户数
+from tmp_excluded_users t
+left join tmp_unacitive_users t0
+    on t.d_date = t0.d_date and t.user_source = t0.user_source and t.country_name = t0.country_name and t.lang_name=t0.lang_name and t.ad_channel = t0.ad_channel
