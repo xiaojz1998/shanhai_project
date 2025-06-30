@@ -2,37 +2,43 @@
 -- File: 飞书机器人-按剧消耗排序.sql
 -- Time: 2025/6/20 17:48
 -- User: xiaoj
--- Description:  
+-- Description:
 ---------------------------------------------
 -- 飞书机器人-按剧消耗排序
 with newuser_tb as (
+    -- select
+    --     *
+    -- from(
+    --     select
+    --         to_timestamp(created_at)::date as d_date
+    --         , case when (area='' or area is null) then 'UNKNOWN' else upper(area) end  as country_code
+    --         , upper(
+    --             case when campaign_id = '0' or campaign_id = '' then '自然'
+    --                 when ad_channel = 'tt' then 'tt'
+    --                 when ad_channel in ('fb','metaweb') then 'fb'
+    --                 when ad_channel = 'apple' then 'apple'
+    --                 when ad_channel = 'moloco_int' then 'moloco_int'
+    --                 when substr(ad_channel,1,12) = 'social_media' then '社媒'
+    --                 else '未知' end ) as ad_channel
+    --         ,upper(put_system) as put_system
+    --         ,v_type
+    --         ,ad_format
+    --         ,uid
+    --         ,split_part(campaign_name ,'_',5)::text as vid -- 不可用，使用消耗表的name
+    --         ,campaign_id,campaign_name
+    --         ,row_number() over(partition by uid order by created_at) rk  -- 可能存在多次归因，以第一次为准
+    --     from public.user_log
+    --     where event = 1
+    --         and created_date >= 20240701
+    -- ) tmp
+    -- where rk = 1
+    --     and d_date = current_date - 1
     select
-        *
-    from(
-        select
-            to_timestamp(created_at)::date as d_date
-            , case when (area='' or area is null) then 'UNKNOWN' else upper(area) end  as country_code
-            , upper(
-                case when campaign_id = '0' or campaign_id = '' then '自然'
-                    when ad_channel = 'tt' then 'tt'
-                    when ad_channel in ('fb','metaweb') then 'fb'
-                    when ad_channel = 'apple' then 'apple'
-                    when ad_channel = 'moloco_int' then 'moloco_int'
-                    when substr(ad_channel,1,12) = 'social_media' then '社媒'
-                    else '未知' end ) as ad_channel
-            ,upper(put_system) as put_system
-            ,v_type
-            ,ad_format
-            ,uid
-            ,split_part(campaign_name ,'_',5)::text as vid -- 不可用，使用消耗表的name
-            ,campaign_id,campaign_name
-            ,row_number() over(partition by uid order by created_at) rk  -- 可能存在多次归因，以第一次为准
-        from public.user_log
-        where event = 1
-            and created_date >= 20240701
-    ) tmp
-    where rk = 1
-        and d_date = current_date - 1
+        d_date::date
+        , uid::bigint
+        , campaign_id
+    from public.dwd_user_info
+    where d_date::date = current_date - 1
 )
 
 
@@ -194,6 +200,25 @@ with newuser_tb as (
     left join new_roi d on cast(a.id as varchar) = d.vid
     left join active e on 1=1
 )
+-- 俄语
+select
+  语种
+  , 剧名
+  , 剧译名
+  , 剧播放人数
+  , concat(cast(播放率 as varchar),'%') as 播放率
+  , 人均看剧时长
+  , 人均播放集数
+  , 充值金额
+  , 充值次数
+  , up值
+  , concat(cast(付费率 as varchar),'%') as 付费率
+  , 剧消耗
+  , 新用户ROI
+from rank
+where 语种 = '俄语'
+order by 剧消耗 desc, 充值金额 desc limit 10
+
 -- 英语
 select
   语种

@@ -142,8 +142,8 @@ tmp_af_daily as (
            else lang_name
          end as lang_name,
         round(sum(pay_amt),2) as total_pay_amt,
-        round(sum(case when conversion_type in ('install','unknown') and campaign_type in ('ua','organic','unknown')  then af_d0 else 0 end),2) as af_d0
-    from public.ads_operate_roi_af_rs
+        round(sum(case when ascribe_channel='自归因' or(conversion_type in ('install','unknown') and campaign_type in ('ua','organic','unknown'))  then af_d0 else 0 end),2) as af_d0
+    from public.ads_operate_roi_ascribe
     group by d_date,
         case
            when lang_name in ('日语','韩语') then '日韩'
@@ -171,14 +171,14 @@ select
   消耗 as "昨天消耗",
   新用户ROI as 昨天新用户ROI,
   整体ROI as 昨天整体ROI,
-  case when 消耗 = 0 then 0 else round(1.0* af_d0 / 消耗,2) end "昨日新用户ROI(af口径)",
-  case when 消耗 = 0 then 0 else round(1.0* total_pay_amt / 消耗,2) end "昨日整体ROI(af口径)",
+  case when 消耗 = 0 then 0 else round(1.0* af_d0 / 消耗,2) end "昨日新用户ROI(染色后)",
+  case when 消耗 = 0 then 0 else round(1.0* total_pay_amt / 消耗,2) end "昨日整体ROI(染色后)",
   dau as "昨天DAU",
   concat(cast(round(昨天留存率*100,2) as varchar),'%') 昨天留存率,
   当月累计收入 as "当月累计收入",
   当月累计消耗 as "当月累计消耗",
   case when 当月累计消耗 = 0 then 0 else round((当月累计收入 - 当月累计退款) * 1.0 / 当月累计消耗,2) end 当月整体ROI,
-  case when 当月累计消耗 = 0 then 0 else round(month_accum_payamt * 1.0/当月累计消耗,2) end "当月整体ROI(af口径)"
+  case when 当月累计消耗 = 0 then 0 else round(month_accum_payamt * 1.0/当月累计消耗,2) end "当月整体ROI(染色后)"
 from t2
     inner join t1 on t1.日期 = t2.日期 and t1.语言 = t2.语言    --只求昨天的指标
     inner join tmp_af_daily_with_month_accum_payamt t3 on t2.日期 = t3.d_date and t2.语言 = t3.lang_name

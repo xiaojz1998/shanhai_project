@@ -28,3 +28,7 @@ values (9234,'【自制非独家】Memory Reset: Mr. Restraint Begged for Love �
 
 insert into public.dim_test_mainland_drama(drama_id, drama_name, test_time)
 values (9936,'【自制独家】Widow to Queen: The Alpha’s Resurrection 开局守寡：改嫁当天前夫回来了','2025-06-21 8:00:00'::timestamp);
+
+
+insert into public.dim_test_mainland_drama(drama_id, drama_name, test_time)
+values (10020,'【非独家】厨神白月光 The Secret Recipe to Snatch a Billionaire','2025-06-24 15:00:00'::timestamp);

@@ -85,26 +85,41 @@ with t27 as (
                 END
 )
 , t3 as (
+    -- 取自经营概览弃用
+    -- select
+    --     sum(dau) as dau
+    --     , CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --         ELSE lang_name
+    --         END AS lang_name
+    -- from  public.dw_operate_view a
+    -- where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '1 day'
+    -- GROUP BY CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --             ELSE lang_name
+    --             END
+
+    -- 新dau代码
+    -- 已经跟首页看板对齐
     select
-        sum(dau) as dau
+        sum(active_uv) as dau
         , CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
             ELSE lang_name
             END AS lang_name
-    from  public.dw_operate_view a
-    where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '1 day'
+    from public.ads_rpt_home_page_hi
+    where d_date::date = CURRENT_DATE - INTERVAL '1 day'
     GROUP BY CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
                 ELSE lang_name
                 END
+
 )
 , t4 as (
     select
         new_k_pay_users
         , dau
-        , CASE WHEN t2.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-            ELSE t2.lang_name
+        , CASE WHEN t3.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+            ELSE t3.lang_name
             END AS lang_name
     from t2 -- 全连接DAU表和首充K币表
-    FULL OUTER JOIN  t3 on t2.lang_name = t3.lang_name
+    FULL JOIN  t3 on t2.lang_name = t3.lang_name
 )
 , t5 as (
     select distinct uid, created_date
@@ -211,50 +226,89 @@ with t27 as (
                 ELSE a.lang_name
             END)
 )
+-- 计算总次留
 , t13 as (
+    -- select
+    --     CASE WHEN  SUM(dau) = 0 THEN 0
+    --         ELSE SUM(dau_2login) * 1.0 / SUM(dau) * 1.0
+    --         END as "总次留"
+    --     , CASE WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --         ELSE a.lang_name
+    --         END AS lang_name
+    -- from public.dw_operate_view a
+    -- where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '2 day'--注意昨日次留数据需完整取自前天，即-2日
+    -- GROUP BY (CASE
+    --             WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --             ELSE a.lang_name
+    --         END)
     select
-        CASE WHEN  SUM(dau) = 0 THEN 0
-            ELSE SUM(dau_2login) * 1.0 / SUM(dau) * 1.0
-            END as "总次留"
-        , CASE WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-            ELSE a.lang_name
+        case when sum(byst_uv) = 0 then 0
+            else sum(yst_uv)*1.0/sum(byst_uv)
+            end as "总次留"
+        , CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+            ELSE lang_name
             END AS lang_name
-    from public.dw_operate_view a
-    where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '2 day'--注意昨日次留数据需完整取自前天，即-2日
-    GROUP BY (CASE
-                WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-                ELSE a.lang_name
-            END)
+    from public.ads_rpt_home_page_remain_hi
+    where d_date::date = current_date
+    group by CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+            ELSE lang_name
+            END
 )
+-- 计算新用户次留
 , t14 as (
+    -- select
+    --     CASE WHEN  SUM(new_dau) = 0 THEN 0
+    --         ELSE SUM(new_dau_2login) * 1.0 / SUM(new_dau) * 1.0
+    --         END as "新用户次留"
+    --     , CASE WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --         ELSE a.lang_name
+    --         END AS lang_name
+    -- from public.dw_operate_view a
+    -- where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '2 day'--注意昨日次留数据需完整取自前天，即-2日
+    -- GROUP BY (CASE
+    --             WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --             ELSE a.lang_name
+    --         END)
     select
-        CASE WHEN  SUM(new_dau) = 0 THEN 0
-            ELSE SUM(new_dau_2login) * 1.0 / SUM(new_dau) * 1.0
-            END as "新用户次留"
-        , CASE WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-            ELSE a.lang_name
+        case when sum(new_byst_uv) = 0 then 0
+            else sum(new_yst_uv)*1.0/sum(new_byst_uv)
+            end as "新用户次留"
+        , CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+            ELSE lang_name
             END AS lang_name
-    from public.dw_operate_view a
-    where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '2 day'--注意昨日次留数据需完整取自前天，即-2日
-    GROUP BY (CASE
-                WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-                ELSE a.lang_name
-            END)
+    from public.ads_rpt_home_page_remain_hi
+    where d_date::date = current_date
+    group by CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+            ELSE lang_name
+            END
 )
+-- 计算老用户次留
 , t15 as (
+    -- select
+    --     CASE WHEN  SUM(old_dau) = 0 THEN 0
+    --         ELSE SUM(old_dau_2login) * 1.0 / SUM(old_dau) * 1.0
+    --         END as "老用户次留"
+    --     , CASE WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --             ELSE a.lang_name
+    --             END AS lang_name
+    -- from public.dw_operate_view a
+    -- where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '2 day'--注意昨日次留数据需完整取自前天，即-2日
+    -- GROUP BY (CASE
+    --             WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
+    --             ELSE a.lang_name
+    --         END)
     select
-        CASE WHEN  SUM(old_dau) = 0 THEN 0
-            ELSE SUM(old_dau_2login) * 1.0 / SUM(old_dau) * 1.0
-            END as "老用户次留"
-        , CASE WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-                ELSE a.lang_name
+        case when sum(old_byst_uv) = 0 then 0
+            else sum(old_yst_uv)*1.0/sum(old_byst_uv)
+            end as "老用户次留"
+        , CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+                ELSE lang_name
                 END AS lang_name
-    from public.dw_operate_view a
-    where  TO_DATE(a.d_date, 'YYYY-MM-DD') = CURRENT_DATE - INTERVAL '2 day'--注意昨日次留数据需完整取自前天，即-2日
-    GROUP BY (CASE
-                WHEN a.lang_name IN ('简体中文', '繁体中文') THEN '中文'
-                ELSE a.lang_name
-            END)
+    from public.ads_rpt_home_page_remain_hi
+    where d_date::date = current_date
+    group by CASE WHEN lang_name IN ('简体中文', '繁体中文') THEN '中文'
+                ELSE lang_name
+                END
 )
 , t16 as (
     select

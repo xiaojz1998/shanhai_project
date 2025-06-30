@@ -1,3 +1,9 @@
+---------------------------------------------
+-- File: 分语言投放组数据_月推送_加组别.sql
+-- Time: 2025/6/28 18:08
+-- User: xiaoj
+-- Description:  
+---------------------------------------------
 with newuser_tb as(
     select
         *
@@ -113,9 +119,9 @@ total_cost as (
                     '中文',
                     language_tb.name
                 ) as 语言,
-    CASE 
-        WHEN  UPPER(optimize_group) LIKE 'G%' THEN 
-            CASE 
+    CASE
+        WHEN  UPPER(optimize_group) LIKE 'G%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'G1' THEN '广州一组'
                 WHEN  UPPER(optimize_group) = 'G2' THEN '广州二组'
                 WHEN  UPPER(optimize_group) = 'G3' THEN '广州三组'
@@ -127,8 +133,8 @@ total_cost as (
                 WHEN  UPPER(optimize_group) = 'G9' THEN '广州九组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'Z1' THEN '深圳一组'
                 WHEN  UPPER(optimize_group) = 'Z2' THEN '深圳二组'
                 WHEN  UPPER(optimize_group) = 'Z3' THEN '深圳三组'
@@ -138,8 +144,8 @@ total_cost as (
                 WHEN  UPPER(optimize_group) = 'Z88' THEN '深圳88组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'N%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'N%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'N1' THEN '南宁一组'
                 WHEN  UPPER(optimize_group) = 'N2' THEN '南宁二组'
                 WHEN  UPPER(optimize_group) = 'N3' THEN '南宁三组'
@@ -177,9 +183,9 @@ total_cost as (
                     '中文',
                     language_tb.name
                 ),
-    CASE 
-        WHEN  UPPER(optimize_group) LIKE 'G%' THEN 
-            CASE 
+    CASE
+        WHEN  UPPER(optimize_group) LIKE 'G%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'G1' THEN '广州一组'
                 WHEN  UPPER(optimize_group) = 'G2' THEN '广州二组'
                 WHEN  UPPER(optimize_group) = 'G3' THEN '广州三组'
@@ -191,8 +197,8 @@ total_cost as (
                 WHEN  UPPER(optimize_group) = 'G9' THEN '广州九组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'Z1' THEN '深圳一组'
                 WHEN  UPPER(optimize_group) = 'Z2' THEN '深圳二组'
                 WHEN  UPPER(optimize_group) = 'Z3' THEN '深圳三组'
@@ -202,8 +208,8 @@ total_cost as (
                 WHEN  UPPER(optimize_group) = 'Z88' THEN '深圳88组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'N%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'N%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'N1' THEN '南宁一组'
                 WHEN  UPPER(optimize_group) = 'N2' THEN '南宁二组'
                 WHEN  UPPER(optimize_group) = 'N3' THEN '南宁三组'
@@ -230,9 +236,9 @@ t1 as (
             '中文',
             language_tb.name
         ) as 语言,
-    CASE 
-        WHEN  UPPER(optimize_group) LIKE 'G%' THEN 
-            CASE 
+    CASE
+        WHEN  UPPER(optimize_group) LIKE 'G%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'G1' THEN '广州一组'
                 WHEN  UPPER(optimize_group) = 'G2' THEN '广州二组'
                 WHEN  UPPER(optimize_group) = 'G3' THEN '广州三组'
@@ -244,8 +250,8 @@ t1 as (
                 WHEN  UPPER(optimize_group) = 'G9' THEN '广州九组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'Z1' THEN '深圳一组'
                 WHEN  UPPER(optimize_group) = 'Z2' THEN '深圳二组'
                 WHEN  UPPER(optimize_group) = 'Z3' THEN '深圳三组'
@@ -255,8 +261,8 @@ t1 as (
                 WHEN  UPPER(optimize_group) = 'Z88' THEN '深圳88组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'N%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'N%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'N1' THEN '南宁一组'
                 WHEN  UPPER(optimize_group) = 'N2' THEN '南宁二组'
                 WHEN  UPPER(optimize_group) = 'N3' THEN '南宁三组'
@@ -280,8 +286,10 @@ t1 as (
         left join "oversea-api_osd_videos" vid_tb on cast(split_part(t1.campaign_name, '_', 5) as varchar) = cast(vid_tb.id as varchar)
         left join "oversea-api_osd_categories" language_tb on cast(vid_tb.category_id as varchar) = cast(language_tb.id as varchar)
     where
-        TO_TIMESTAMP(t1.created_at) :: date <= current_date - 1
-        and TO_TIMESTAMP(t1.created_at) :: date >= current_date - 7
+    TO_TIMESTAMP(t1.created_at) :: date <= (
+      DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 day'
+    ) :: date
+    and TO_TIMESTAMP(t1.created_at) :: date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') :: date
         and split_part(b.campaign_name, '_', 1) not in (
             '飞书',
             'beijingdilcn808',
@@ -297,9 +305,9 @@ t1 as (
             '中文',
             language_tb.name
         ),
-    CASE 
-        WHEN  UPPER(optimize_group) LIKE 'G%' THEN 
-            CASE 
+    CASE
+        WHEN  UPPER(optimize_group) LIKE 'G%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'G1' THEN '广州一组'
                 WHEN  UPPER(optimize_group) = 'G2' THEN '广州二组'
                 WHEN  UPPER(optimize_group) = 'G3' THEN '广州三组'
@@ -311,8 +319,8 @@ t1 as (
                 WHEN  UPPER(optimize_group) = 'G9' THEN '广州九组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'Z1' THEN '深圳一组'
                 WHEN  UPPER(optimize_group) = 'Z2' THEN '深圳二组'
                 WHEN  UPPER(optimize_group) = 'Z3' THEN '深圳三组'
@@ -322,8 +330,8 @@ t1 as (
                 WHEN  UPPER(optimize_group) = 'Z88' THEN '深圳88组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'N%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'N%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'N1' THEN '南宁一组'
                 WHEN  UPPER(optimize_group) = 'N2' THEN '南宁二组'
                 WHEN  UPPER(optimize_group) = 'N3' THEN '南宁三组'
@@ -365,7 +373,7 @@ t2 as (
         left join tmp_user_pay on cast(newuser_tb.uid as varchar) = cast(tmp_user_pay.uid as varchar)
     where
         newuser_tb.p_date <= current_date - 1
-        and newuser_tb.p_date >= current_date - 7
+        and newuser_tb.p_date >= current_date - 40
     group by
         newuser_tb.p_date,
         newuser_tb.campaign_id
@@ -380,9 +388,9 @@ total_recharge as (
             '中文',
             language_tb.name
         ) as 语言,
-    CASE 
-        WHEN  UPPER(optimize_group) LIKE 'G%' THEN 
-            CASE 
+    CASE
+        WHEN  UPPER(optimize_group) LIKE 'G%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'G1' THEN '广州一组'
                 WHEN  UPPER(optimize_group) = 'G2' THEN '广州二组'
                 WHEN  UPPER(optimize_group) = 'G3' THEN '广州三组'
@@ -394,8 +402,8 @@ total_recharge as (
                 WHEN  UPPER(optimize_group) = 'G9' THEN '广州九组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'Z1' THEN '深圳一组'
                 WHEN  UPPER(optimize_group) = 'Z2' THEN '深圳二组'
                 WHEN  UPPER(optimize_group) = 'Z3' THEN '深圳三组'
@@ -405,8 +413,8 @@ total_recharge as (
                 WHEN  UPPER(optimize_group) = 'Z88' THEN '深圳88组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'N%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'N%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'N1' THEN '南宁一组'
                 WHEN  UPPER(optimize_group) = 'N2' THEN '南宁二组'
                 WHEN  UPPER(optimize_group) = 'N3' THEN '南宁三组'
@@ -430,8 +438,10 @@ total_recharge as (
         ) = cast(vid_tb.id as varchar)
         left join "oversea-api_osd_categories" language_tb on cast(vid_tb.category_id as varchar) = cast(language_tb.id as varchar)
     where
-        tmp_user_pay.p_date <= current_date - 1
-        and tmp_user_pay.p_date >= current_date - 7
+     tmp_user_pay.p_date <= (
+      DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 day'
+    ) :: date
+    and tmp_user_pay.p_date >= DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') :: date
     group by
         if(
             language_tb.name in (
@@ -441,9 +451,9 @@ total_recharge as (
             '中文',
             language_tb.name
         ),
-    CASE 
-        WHEN  UPPER(optimize_group) LIKE 'G%' THEN 
-            CASE 
+    CASE
+        WHEN  UPPER(optimize_group) LIKE 'G%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'G1' THEN '广州一组'
                 WHEN  UPPER(optimize_group) = 'G2' THEN '广州二组'
                 WHEN  UPPER(optimize_group) = 'G3' THEN '广州三组'
@@ -455,8 +465,8 @@ total_recharge as (
                 WHEN  UPPER(optimize_group) = 'G9' THEN '广州九组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'Z%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'Z1' THEN '深圳一组'
                 WHEN  UPPER(optimize_group) = 'Z2' THEN '深圳二组'
                 WHEN  UPPER(optimize_group) = 'Z3' THEN '深圳三组'
@@ -466,8 +476,8 @@ total_recharge as (
                 WHEN  UPPER(optimize_group) = 'Z88' THEN '深圳88组'
                 ELSE '其他'
             END
-        WHEN  UPPER(optimize_group) LIKE 'N%' THEN 
-            CASE 
+        WHEN  UPPER(optimize_group) LIKE 'N%' THEN
+            CASE
                 WHEN  UPPER(optimize_group) = 'N1' THEN '南宁一组'
                 WHEN  UPPER(optimize_group) = 'N2' THEN '南宁二组'
                 WHEN  UPPER(optimize_group) = 'N3' THEN '南宁三组'
@@ -484,7 +494,13 @@ total_recharge as (
 ),
 total_all as (
     select
-        (current_date -7) :: varchar || '~' || (current_date -1) :: varchar as 日期,
+      (
+      DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') :: date
+    ) :: varchar || '~' || (
+      (
+        DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 day'
+      ) :: date
+    ) :: varchar as 日期,
         a.语言,
         a.投放组,
         COALESCE(广告消耗, 0.00) 广告消耗,
@@ -590,7 +606,13 @@ total_all as (
     union
     all
     select
-        (current_date -7) :: varchar || '~' || (current_date -1) :: varchar as 日期,
+      (
+      DATE_TRUNC('month', CURRENT_DATE - INTERVAL '1 month') :: date
+    ) :: varchar || '~' || (
+      (
+        DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 day'
+      ) :: date
+    ) :: varchar as 日期,
         b.语言,
         '汇总' as 投放组,
         COALESCE(广告消耗, 0.00) 广告消耗,
@@ -749,7 +771,6 @@ order by
     end,
     广告消耗 desc
 
-
 --英语
 select
     *
@@ -791,9 +812,6 @@ order by
     end,
     广告消耗 desc
 
-
-
-
 --日语
 select
   *
@@ -833,7 +851,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --韩语
 select
   *
@@ -873,7 +891,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --泰语
 select
   *
@@ -913,7 +931,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --印尼语
 select
   *
@@ -953,7 +971,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --法语
 select
   *
@@ -993,7 +1011,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --德语
 select
   *
@@ -1033,7 +1051,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --西班牙语
 select
   *
@@ -1073,7 +1091,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --葡萄牙语
 select
   *
@@ -1113,7 +1131,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --中文
 select
   *
@@ -1153,7 +1171,7 @@ order by
         when a.投放组 = '南宁九组' then 28
         else 999
     end,
-    广告消耗 desc 
+    广告消耗 desc
   --阿拉伯语
 select
   *
